@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChaosMonkey</title>
+  <style>
+    /* Black GitHub-like theme */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%;
+      background-color: #0d1117; /* GitHub dark background */
+      color: #c9d1d9; /* GitHub light gray */
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+      color: #58a6ff; /* GitHub blue accent */
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 1.25rem;
+      max-width: 600px;
+      line-height: 1.5;
+      margin: 0.5rem 0;
+      color: #8b949e; /* muted text */
+    }
+
+    em {
+      color: #6e7681;
+      font-style: normal;
+      margin-top: 1rem;
+      display: block;
+      font-size: 1rem;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #444c56;
+      user-select: none;
+    }
+
+    /* subtle fade-in */
+    body {
+      opacity: 0;
+      animation: fadeIn 1s forwards ease-in-out;
+    }
+    @keyframes fadeIn {
+      to {opacity: 1;}
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1rem;
+        max-width: 90vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>ChaosMonkey.dev</h1>
+  <p>The world’s first holistic telemetry tracking tool for engineering leaders, by engineering leaders.</p>
+  <em>Currently operating in stealth mode. Stay tuned.</em>
+  <footer>&copy; 2025 ChaosMonkey</footer>
+</body>
+</html>
