@@ -6,14 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ChaosMonkey</title>
   <style>
-    /* Black GitHub-like theme */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
     html, body {
       margin: 0; padding: 0;
       height: 100%;
-      background-color: #0d1117; /* GitHub dark background */
-      color: #c9d1d9; /* GitHub light gray */
+      background-color: #0d1117;
+      color: #c9d1d9;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
       display: flex;
       justify-content: center;
@@ -23,11 +22,17 @@
       padding: 1rem;
     }
 
+    img.logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+
     h1 {
       font-weight: 700;
       font-size: 3.5rem;
       margin-bottom: 0.5rem;
-      color: #58a6ff; /* GitHub blue accent */
+      color: #58a6ff;
     }
 
     p {
@@ -36,7 +41,7 @@
       max-width: 600px;
       line-height: 1.5;
       margin: 0.5rem 0;
-      color: #8b949e; /* muted text */
+      color: #8b949e;
     }
 
     em {
@@ -54,7 +59,6 @@
       user-select: none;
     }
 
-    /* subtle fade-in */
     body {
       opacity: 0;
       animation: fadeIn 1s forwards ease-in-out;
@@ -63,8 +67,10 @@
       to {opacity: 1;}
     }
 
-    /* Responsive tweaks */
     @media (max-width: 480px) {
+      img.logo {
+        width: 90px;
+      }
       h1 {
         font-size: 2.5rem;
       }
@@ -76,6 +82,7 @@
   </style>
 </head>
 <body>
+  <img src="logo.png" alt="ChaosMonkey Logo" class="logo" />
   <h1>ChaosMonkey.dev</h1>
   <p>The world’s first holistic telemetry tracking tool for engineering leaders, by engineering leaders.</p>
   <em>Currently operating in stealth mode. Stay tuned.</em>
