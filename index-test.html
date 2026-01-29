@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChaosMonkey — Engineering ROI for AI-Driven Development</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #070A0F;
+      --panel: rgba(255,255,255,.06);
+      --panel-2: rgba(255,255,255,.04);
+      --border: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.62);
+      --muted2: rgba(255,255,255,.42);
+      --glow: rgba(120,140,255,.35);
+      --accent: #8EA2FF;
+      --accent2: #55F2D4;
+    }
+
+    html, body { height: 100%; }
+    body{
+      background: radial-gradient(1200px 700px at 15% 10%, rgba(142,162,255,.18), transparent 60%),
+                  radial-gradient(900px 600px at 85% 15%, rgba(85,242,212,.12), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      letter-spacing: .2px;
+    }
+
+    .navbar{
+      backdrop-filter: blur(10px);
+      background: rgba(7,10,15,.65) !important;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-mark{
+      width: 34px; height: 34px;
+      display: inline-grid; place-items: center;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(142,162,255,.35), rgba(85,242,212,.18));
+      border: 1px solid var(--border);
+      box-shadow: 0 0 0 6px rgba(142,162,255,.06);
+      font-weight: 700;
+    }
+
+    .hero{
+      padding-top: 6.5rem;
+      padding-bottom: 3.5rem;
+    }
+
+    .kicker{
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .35rem .7rem;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .kicker-dot{
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      background: var(--accent2);
+      box-shadow: 0 0 0 6px rgba(85,242,212,.12);
+    }
+
+    .display-tight{
+      line-height: 1.05;
+      letter-spacing: -0.8px;
+    }
+
+    .text-muted-strong{ color: var(--muted) !important; }
+
+    .btn-primary{
+      background: linear-gradient(135deg, rgba(142,162,255,.95), rgba(142,162,255,.75));
+      border: 1px solid rgba(142,162,255,.55);
+      box-shadow: 0 10px 30px rgba(142,162,255,.18);
+    }
+    .btn-primary:hover{ filter: brightness(1.05); }
+    .btn-outline-light{
+      border-color: rgba(255,255,255,.20);
+      color: rgba(255,255,255,.85);
+    }
+    .btn-outline-light:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.28);
+      color: rgba(255,255,255,.92);
+    }
+
+    .panel{
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+
+    .panel-soft{
+      background: var(--panel-2);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+    }
+
+    .section{
+      padding: 4.25rem 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .section-title{
+      font-size: 1.75rem;
+      letter-spacing: -0.4px;
+    }
+
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .3rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size: .85rem;
+      white-space: nowrap;
+    }
+
+    .mini-metric{
+      display: grid;
+      gap: .1rem;
+      padding: .85rem 1rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .mini-metric .label{ color: var(--muted2); font-size: .8rem; }
+    .mini-metric .value{ font-weight: 650; font-size: 1.05rem; }
+
+    /* Placeholder graphic box */
+    .graphic{
+      min-height: 320px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(500px 220px at 20% 25%, rgba(142,162,255,.22), transparent 60%),
+        radial-gradient(420px 260px at 80% 70%, rgba(85,242,212,.14), transparent 58%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      position: relative;
+      overflow: hidden;
+    }
+    .graphic:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+      transform: translateX(-60%);
+      animation: shimmer 6s infinite;
+      pointer-events:none;
+    }
+    @keyframes shimmer{
+      0%{ transform: translateX(-60%); }
+      45%{ transform: translateX(60%); }
+      100%{ transform: translateX(60%); }
+    }
+
+    .graphic-label{
+      position:absolute;
+      left: 18px;
+      bottom: 16px;
+      display:flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+
+    .divider{
+      height: 1px;
+      background: rgba(255,255,255,.08);
+      margin: 1.25rem 0;
+    }
+
+    footer{
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      padding: 2.5rem 0;
+    }
+
+    .small-link{
+      color: rgba(255,255,255,.70);
+      text-decoration: none;
+    }
+    .small-link:hover{ color: rgba(255,255,255,.88); text-decoration: underline; }
+
+    .container-narrow{ max-width: 1100px; }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container container-narrow">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <span class="brand-mark">🐵</span>
+        <span class="fw-semibold">ChaosMonkey</span>
+        <span class="pill d-none d-md-inline-flex">Engineering ROI • AI workflows</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="#how">How it works</a></li>
+          <li class="nav-item"><a class="nav-link" href="#signals">Signals</a></li>
+          <li class="nav-item"><a class="nav-link" href="#insights">Insights</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-outline-light btn-sm px-3" href="#video">Watch demo</a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-primary btn-sm px-3" href="#contact">Request access</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container container-narrow">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <div class="kicker mb-3">
+            <span class="kicker-dot"></span>
+            <span>Make AI development measurable — without vanity metrics</span>
+          </div>
+
+          <h1 class="display-5 fw-semibold display-tight mb-3">
+            ChaosMonkey helps engineering leaders connect AI usage to delivery outcomes.
+          </h1>
+
+          <p class="lead text-muted-strong mb-4">
+            Understand how work flows from IDE → review → merge → deploy, with evidence-backed signals you can act on.
+            Built for CTOs, VPs, and Directors who need clarity, not dashboards.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <a class="btn btn-primary btn-lg px-4" href="#contact">Request early access</a>
+            <a class="btn btn-outline-light btn-lg px-4" href="#video">Watch the demo</a>
+          </div>
+
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="mini-metric">
+                <div class="label">Focus</div>
+                <div class="value">AI ROI + pipeline health</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mini-metric">
+                <div class="label">Output</div>
+                <div class="value">Actionable insights + proof</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="d-flex flex-wrap gap-2">
+            <span class="pill">IDE signals</span>
+            <span class="pill">GitHub + CI/CD</span>
+            <span class="pill">Performance insights</span>
+            <span class="pill">Exec-ready evidence</span>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="panel p-3 p-md-4">
+            <div class="graphic">
+              <div class="graphic-label">
+                <span class="pill">Connect IDEs</span>
+                <span class="pill">Metrics by tool</span>
+                <span class="pill">AI usage signals</span>
+                <span class="pill">Pipeline stages</span>
+              </div>
+            </div>
+            <div class="mt-3 text-muted-strong small">
+              Replace this with a screenshot collage, a product mock, or a single “dashboards” image.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- VIDEO -->
+  <section id="video" class="section">
+    <div class="container container-narrow">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <h2 class="section-title fw-semibold mb-2">One demo video. Clear story.</h2>
+          <p class="text-muted-strong mb-3">
+            Walk from AI-assisted coding patterns to review friction and deployment outcomes in a single narrative.
+          </p>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="pill">2–3 minutes</span>
+            <span class="pill">Leader-friendly</span>
+            <span class="pill">Evidence included</span>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="panel p-3">
+            <!-- Replace src with your video embed (YouTube/Vimeo/Loom) -->
+            <div class="ratio ratio-16x9">
+              <iframe
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="ChaosMonkey Demo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+            <div class="mt-2 text-muted-strong small">
+              Swap the embed URL for Loom/YouTube/Vimeo when ready.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT SECTION 1 -->
+  <section id="how" class="section">
+    <div class="container container-narrow">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <div class="graphic">
+            <div class="graphic-label">
+              <span class="pill">Pipeline map</span>
+              <span class="pill">Stage-by-stage</span>
+              <span class="pill">No naked numbers</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="section-title fw-semibold mb-2">A delivery pipeline view leaders can trust</h3>
+          <p class="text-muted-strong mb-3">
+            Organize signals across the lifecycle: Plan &amp; Code → Review &amp; Merge → Deploy &amp; Operate.
+            Every metric is contextualized with units, time windows, and supporting evidence.
+          </p>
+          <ul class="text-muted-strong mb-0">
+            <li>Stage-level health without losing detail</li>
+            <li>Evidence in-line (sources, time ranges, contributors)</li>
+            <li>Focus on what changes decisions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT SECTION 2 -->
+  <section id="signals" class="section">
+    <div class="container container-narrow">
+      <div class="row g-4 align-items-center flex-lg-row-reverse">
+        <div class="col-lg-6">
+          <div class="graphic">
+            <div class="graphic-label">
+              <span class="pill">IDE signals</span>
+              <span class="pill">AI usage</span>
+              <span class="pill">Sessions</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="section-title fw-semibold mb-2">AI usage signals, not guesswork</h3>
+          <p class="text-muted-strong mb-3">
+            Measure how AI tools show up in real work patterns—without turning developers into KPIs.
+            Understand adoption, workflow shifts, and where assistance correlates with speed or friction.
+          </p>
+          <ul class="text-muted-strong mb-0">
+            <li>Patterns over surveillance</li>
+            <li>Tool-aware views across IDE ecosystems</li>
+            <li>Rollups engineered for leadership questions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT SECTION 3 -->
+  <section class="section">
+    <div class="container container-narrow">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <div class="graphic">
+            <div class="graphic-label">
+              <span class="pill">Productivity by tool</span>
+              <span class="pill">IDE performance</span>
+              <span class="pill">Trends</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="section-title fw-semibold mb-2">See productivity by tool, not by opinion</h3>
+          <p class="text-muted-strong mb-3">
+            Compare tool impact with clean time-series and card views. Identify bottlenecks and wins across teams,
+            repos, and time windows.
+          </p>
+          <ul class="text-muted-strong mb-0">
+            <li>Card view for scanning, time-series for proof</li>
+            <li>Team/repo segmentation</li>
+            <li>Trend changes that tie to events</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT SECTION 4 -->
+  <section class="section">
+    <div class="container container-narrow">
+      <div class="row g-4 align-items-center flex-lg-row-reverse">
+        <div class="col-lg-6">
+          <div class="graphic">
+            <div class="graphic-label">
+              <span class="pill">Review & merge</span>
+              <span class="pill">Risk</span>
+              <span class="pill">Concentration</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="section-title fw-semibold mb-2">Connect code review friction to delivery</h3>
+          <p class="text-muted-strong mb-3">
+            Surface signals like reviewer load concentration, PR sizing mix, and cycle time shifts—
+            presented as executive-ready narratives with backing data.
+          </p>
+          <ul class="text-muted-strong mb-0">
+            <li>Identify review bottlenecks and single points of failure</li>
+            <li>Track how AI changes PR size and throughput</li>
+            <li>Evidence-first insight strips and cards</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT SECTION 5 -->
+  <section class="section">
+    <div class="container container-narrow">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <div class="graphic">
+            <div class="graphic-label">
+              <span class="pill">Deploy & operate</span>
+              <span class="pill">Failures</span>
+              <span class="pill">MTTR</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="section-title fw-semibold mb-2">Delivery metrics that drive action</h3>
+          <p class="text-muted-strong mb-3">
+            Tie deployments, failures, and recovery signals to the work that preceded them.
+            Make it easy to spot where throughput rises but reliability slips.
+          </p>
+          <ul class="text-muted-strong mb-0">
+            <li>Deployment outcomes and failure visibility</li>
+            <li>Health signals aligned to delivery stages</li>
+            <li>Fast drill-down from insight → evidence</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT SECTION 6 -->
+  <section id="insights" class="section">
+    <div class="container container-narrow">
+      <div class="row g-4 align-items-center flex-lg-row-reverse">
+        <div class="col-lg-6">
+          <div class="graphic">
+            <div class="graphic-label">
+              <span class="pill">Performance Insights</span>
+              <span class="pill">Recommendation</span>
+              <span class="pill">Proof</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="section-title fw-semibold mb-2">Performance insights with receipts</h3>
+          <p class="text-muted-strong mb-3">
+            Replace “dashboard archaeology” with a short list of prioritized insights.
+            Each includes what changed, why it matters, and the evidence behind it.
+          </p>
+          <div class="panel-soft p-3">
+            <div class="d-flex justify-content-between align-items-start gap-3">
+              <div>
+                <div class="fw-semibold">Example insight</div>
+                <div class="text-muted-strong small">
+                  “Review load is concentrated on a small set of engineers, increasing cycle time risk.”
+                </div>
+              </div>
+              <span class="pill">High</span>
+            </div>
+            <div class="divider"></div>
+            <div class="text-muted-strong small">
+              Evidence: time window • units • contributors • source links
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING TEASER -->
+  <section id="pricing" class="section">
+    <div class="container container-narrow">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-7">
+          <h2 class="section-title fw-semibold mb-2">Simple pricing that matches how leaders buy</h2>
+          <p class="text-muted-strong mb-0">
+            Admin/leader seats plus lower-cost developer seats. Free plan for small teams.
+            Early access includes onboarding and configuration help.
+          </p>
+        </div>
+        <div class="col-lg-5">
+          <div class="panel p-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="fw-semibold">Early Access</div>
+              <span class="pill">Limited</span>
+            </div>
+            <div class="text-muted-strong mt-2">
+              Want a quick walkthrough and fit check?
+            </div>
+            <div class="d-grid gap-2 mt-3">
+              <a class="btn btn-primary" href="#contact">Request access</a>
+              <a class="btn btn-outline-light" href="#video">Watch demo</a>
+            </div>
+            <div class="text-muted-strong small mt-3">
+              No spam. Short intake. Fast response.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container container-narrow">
+      <div class="panel p-4 p-md-5">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7">
+            <h2 class="section-title fw-semibold mb-2">Request early access</h2>
+            <p class="text-muted-strong mb-0">
+              If you’re a CTO/VP Eng/Director and want to pressure-test ROI and workflow impact, send a note.
+            </p>
+          </div>
+          <div class="col-lg-5">
+            <!-- Replace with your form provider or a simple mailto -->
+            <div class="d-grid gap-2">
+              <a class="btn btn-primary btn-lg" href="mailto:founder@chaosmonkey.dev?subject=ChaosMonkey%20Early%20Access&body=Team%20size%3A%0AStack%20(IDE%2FGitHub%2FCI)%3A%0AWhat%20you%20want%20to%20learn%3A%0A">
+                Email the founder
+              </a>
+              <a class="btn btn-outline-light" href="#how">See how it works</a>
+            </div>
+            <div class="text-muted-strong small mt-3">
+              Tip: swap this section for a Typeform/Tally embed when ready.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container container-narrow">
+      <div class="row g-3 align-items-center">
+        <div class="col-md-6">
+          <div class="d-flex align-items-center gap-2">
+            <span class="brand-mark">🐵</span>
+            <span class="fw-semibold
