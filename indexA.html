@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChaosMonkey — Engineering Analytics for AI-Assisted Development</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #808080;
+            --accent: #00ff88;
+            --border: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container-fluid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--bg-primary) !important;
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary) !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            color: var(--text-primary);
+        }
+
+        .hero .subheadline {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 500;
+            padding: 0.75rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #00cc6a;
+            border-color: #00cc6a;
+            color: var(--bg-primary);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline-primary {
+            color: var(--accent);
+            border-color: var(--accent);
+            font-weight: 500;
+            padding: 0.75rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-1px);
+        }
+
+        /* Section styling */
+        .section {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        /* Feature sections */
+        .feature-section {
+            padding: 6rem 0;
+        }
+
+        .feature-visual {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Credibility bullets */
+        .credibility-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .credibility-list li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .credibility-list li i {
+            color: var(--accent);
+            margin-right: 0.75rem;
+        }
+
+        /* Video section */
+        .video-container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        /* Logo strip */
+        .logo-strip {
+            background-color: var(--bg-secondary);
+            padding: 3rem 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 40px;
+            background-color: var(--bg-tertiary);
+            border-radius: 4px;
+            margin: 0 1rem;
+            display: inline-block;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .hero {
+                min-height: auto;
+                padding: 3rem 0;
+            }
+            
+            .feature-section {
+                padding: 3rem 0;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ChaosMonkey</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="fade-in">Engineering analytics for AI-assisted development</h1>
+                    <p class="subheadline fade-in">AI tools changed how code is written. ChaosMonkey shows you what actually changed in your delivery outcomes.</p>
+                    
+                    <div class="fade-in">
+                        <a href="#early-access" class="btn btn-primary me-3">Request early access</a>
+                        <a href="#demo" class="btn btn-outline-primary">Watch demo (2:34)</a>
+                    </div>
+                    
+                    <ul class="credibility-list fade-in">
+                        <li><i class="bi bi-check-circle-fill"></i> Stage-based metrics (Plan & Code → Review & Merge → Deploy)</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Evidence-backed insights, not vanity dashboards</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Executive-ready output for decision-making</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Video Section -->
+    <section id="demo" class="section">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="text-center mb-4">
+                        <h3>See how it works</h3>
+                        <p class="text-muted">2–3 minute walkthrough of cause → effect → outcome</p>
+                    </div>
+                    <div class="video-container">
+                        <div>
+                            <i class="bi bi-play-circle" style="font-size: 3rem;"></i>
+                            <p>Demo video placeholder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Strip -->
+    <section class="logo-strip">
+        <div class="container-fluid">
+            <p class="text-muted mb-4">Built with engineering leaders from</p>
+            <div>
+                <span class="logo-placeholder"></span>
+                <span class="logo-placeholder"></span>
+                <span class="logo-placeholder"></span>
+                <span class="logo-placeholder"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 1: Pipeline View -->
+    <section class="feature-section">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h3>Stage-based visibility</h3>
+                    <p>Most tools fragment your engineering story across dashboards. You see commit counts, PR metrics, and deployment stats in isolation.</p>
+                    <p>ChaosMonkey connects the full pipeline: AI usage patterns → workflow behavior → delivery outcomes. One narrative, not three.</p>
+                    <ul class="credibility-list">
+                        <li><i class="bi bi-arrow-right-circle"></i> Plan & Code: IDE adoption and session patterns</li>
+                        <li><i class="bi bi-arrow-right-circle"></i> Review & Merge: PR dynamics and reviewer load</li>
+                        <li><i class="bi bi-arrow-right-circle"></i> Deploy & Operate: Reliability and recovery signals</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <div class="feature-visual">
+                        <div>
+                            <i class="bi bi-diagram-3" style="font-size: 4rem;"></i>
+                            <p>Pipeline visualization placeholder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 2: AI Usage Signals -->
+    <section class="feature-section">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-lg-2">
+                    <h3>AI impact without surveillance</h3>
+                    <p>Engineering leaders need to understand AI's effect on delivery, without monitoring individual developers.</p>
+                    <p>ChaosMonkey measures patterns, not people. Adoption rates, workflow shifts, and outcome correlations at the team level.</p>
+                    <ul class="credibility-list">
+                        <li><i class="bi bi-arrow-right-circle"></i> IDE adoption patterns by team</li>
+                        <li><i class="bi bi-arrow-right-circle"></i> AI-assisted vs manual workflow differences</li>
+                        <li><i class="bi bi-arrow-right-circle"></i> Leader-safe aggregation and reporting</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <div class="feature-visual">
+                        <div>
+                            <i class="bi bi-graph-up" style="font-size: 4rem;"></i>
+                            <p>AI usage patterns placeholder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 3: Review & Merge Health -->
+    <section class="feature-section">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h3>Where delivery actually breaks</h3>
+                    <p>The review stage is where AI's indirect effects surface: larger PRs, reviewer concentration, and cycle time risks.</p>
+                    <p>ChaosMonkey identifies these patterns before they become bottlenecks, with clear evidence about what changed and why it matters.</p>
+                    <ul class="credibility-list">
+                        <li><i class="bi bi-arrow-right-circle"></i> PR size dynamics and reviewer load</li>
+                        <li><i class="bi bi-arrow-right-circle"></i> Cycle time risk identification</li>
+                        <li><i class="bi bi-arrow-right-circle"></i> AI's impact on code review patterns</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <div class="feature-visual">
+                        <div>
+                            <i class="bi bi-git" style="font-size: 4rem;"></i>
+                            <p>Review metrics placeholder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 4: Deploy & Operate Outcomes -->
+    <section class="feature-section">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-lg-2">
+                    <h3>Outcomes tied to behavior</h3>
+                    <p>Failed deployments and recovery time are the ultimate indicators of workflow health. But most tools can't connect these back to upstream decisions.</p>
+                    <p>ChaosMonkey traces deployment reliability back to AI adoption patterns, review dynamics, and workflow changes.</p>
+                    <ul class="credibility-list">
+                        <li><i class="bi bi-arrow-right-circle"></i> Deployment failure rate correlation</li>
+                        <li><i class="bi bi-arrow-right-circle"></i> Recovery time analysis</li>
+                        <li><i class="bi bi-arrow-right-circle"></i> Reliability tradeoff insights</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <div class="feature-visual">
+                        <div>
+                            <i class="bi bi-rocket-takeoff" style="font-size: 4rem;"></i>
+                            <p>Deployment outcomes placeholder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 5: Performance Insights -->
+    <section class="feature-section">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h3>Insights, not dashboards</h3>
+                    <p>Engineering leaders don't need more dashboards. They need clear prioritization of what changed, why it matters, and what to do about it.</p>
+                    <p>ChaosMonkey delivers executive-ready insights with evidence backing every recommendation. No naked numbers, no vanity metrics.</p>
+                    <ul class="credibility-list">
+                        <li><i class="bi bi-arrow-right-circle"></i> Prioritized impact assessment</li>
+                        <li><i class="bi bi-arrow-right-circle"></i> Clear "what changed / why it matters / evidence"</li>
+                        <li><i class="bi bi-arrow-right-circle"></i> Actionable recommendations with expected outcomes</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <div class="feature-visual">
+                        <div>
+                            <i class="bi bi-lightbulb" style="font-size: 4rem;"></i>
+                            <p>Performance insights placeholder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="early-access" class="cta-section">
+        <div class="container-fluid">
+            <h2>See your team's AI impact</h2>
+            <p class="text-muted">Early access available for select engineering teams</p>
+            
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-6">
+                    <form class="d-flex">
+                        <input type="email" class="form-control me-2" placeholder="Work email" style="background-color: var(--bg-secondary); border-color: var(--border); color: var(--text-primary);">
+                        <button type="submit" class="btn btn-primary">Get access</button>
+                    </form>
+                    <p class="text-muted mt-3">Founder-led onboarding. No credit card required.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container-fluid">
+            <p class="text-muted">© 2026 ChaosMonkey. Built for engineering leaders, by engineers.</p>
+            <p class="text-muted">
+                <a href="#" style="color: var(--text-muted); text-decoration: none;">Privacy</a> • 
+                <a href="#" style="color: var(--text-muted); text-decoration: none;">Terms</a> • 
+                <a href="#" style="color: var(--text-muted); text-decoration: none;">Contact</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Simple fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.2s';
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('h2, h3, p, .feature-visual').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
