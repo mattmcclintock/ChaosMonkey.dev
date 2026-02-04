@@ -1,470 +1,765 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChaosMonkey — Engineering Analytics for AI-Assisted Development</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <style>
-:root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #121212;
-  --bg-tertiary: #1a1a1a;
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255,255,255,0.72);
-  --text-muted: rgba(255,255,255,0.48);
-  --accent: #00ff88;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChaosMonkey — Engineering Analytics for AI-Assisted Development</title>
 
-  /* New */
-  --border: rgba(255,255,255,0.10);
-  --border-strong: rgba(255,255,255,0.16);
-  --glow: 0 0 0 1px rgba(255,255,255,0.06), 0 12px 40px rgba(0,0,0,0.55);
-  --glass: rgba(255,255,255,0.04);
-}
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+  <!-- Match product header font -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
 
-/* Subtle vignette + smoother font rendering */
-body {
-  background:
-    radial-gradient(1000px 600px at 50% -10%, rgba(0,255,136,0.10), transparent 60%),
-    radial-gradient(900px 500px at 80% 10%, rgba(120,80,255,0.10), transparent 55%),
-    var(--bg-primary);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  <style>
+    :root{
+      --bg-primary:#0a0a0a;
+      --bg-secondary:#121212;
+      --bg-tertiary:#1a1a1a;
 
-/* Slightly tighter typography, more “product” */
-h1 {
-  letter-spacing: -0.02em;
-}
-.hero .subheadline {
-  max-width: 52rem;
-}
+      --text-primary:#ffffff;
+      --text-secondary:rgba(255,255,255,.74);
+      --text-muted:rgba(255,255,255,.52);
 
-/* Navbar: thinner + more premium */
-.navbar {
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(10px);
-  background-color: rgba(10,10,10,0.70) !important;
-}
+      /* keep your original accent */
+      --accent:#00ff88;
 
-/* HERO: center align */
-.hero {
-  text-align: center;
-  min-height: 92vh;
-}
+      /* premium borders/shadows */
+      --border:rgba(255,255,255,.10);
+      --border-strong:rgba(255,255,255,.16);
+      --shadow: 0 0 0 1px rgba(255,255,255,.06), 0 18px 60px rgba(0,0,0,.55);
+      --shadowSoft: 0 0 0 1px rgba(255,255,255,.05), 0 10px 28px rgba(0,0,0,.50);
 
-.hero .row {
-  justify-content: center;
-}
+      --radius:16px;
+      --radiusSm:12px;
 
-.hero .col-lg-8 {
-  margin: 0 auto;
-}
+      /* iPhone-black vibe: cool highlights, still subtle */
+      --halo-blue: rgba(47,124,255,.22);
+      --halo-green: rgba(0,255,136,.12);
+      --halo-purple: rgba(120,80,255,.10);
+    }
 
-/* Center buttons */
-.hero .btn-row {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+    *{ margin:0; padding:0; box-sizing:border-box; }
+    html,body{ height:100%; }
 
-/* Make buttons feel more modern */
-.btn-primary,
-.btn-outline-primary {
-  border-radius: 999px;
-  padding: 0.8rem 1.4rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-}
+    body{
+      background:
+        radial-gradient(1100px 650px at 50% -15%, var(--halo-blue), transparent 60%),
+        radial-gradient(900px 520px at 80% 0%, var(--halo-green), transparent 55%),
+        radial-gradient(900px 520px at 15% 15%, var(--halo-purple), transparent 55%),
+        linear-gradient(180deg, #070708, #0b0b0f);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-.btn-outline-primary {
-  background: rgba(255,255,255,0.02);
-  border-color: var(--border-strong);
-}
+    .container-fluid{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-.btn-outline-primary:hover {
-  border-color: transparent;
-}
+    /* Typography (keep your copy; just slightly tighter / more modern) */
+    h1{
+      font-size: clamp(2.35rem, 3.2vw, 3.5rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin-bottom: 1.5rem;
+    }
+    h2{
+      font-size: clamp(2rem, 2.6vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    h3{
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+    p{
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+    .text-muted{ color: var(--text-muted) !important; }
 
-/* Credibility list: centered layout */
-.credibility-list {
-  max-width: 44rem;
-  margin: 2rem auto 0;
-}
+    /* =========================
+       PRODUCT-MATCHED HEADER
+       (Homepage header now matches your product header)
+       ========================= */
+    .dashboard-header{
+      background-color:#000000;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .dashboard-logo{
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      object-fit: cover;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.10), 0 10px 24px rgba(0,0,0,.55);
+    }
+    .dashboard-title{
+      font-family: 'Bebas Neue', system-ui, sans-serif;
+      font-size: 2.25rem;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      margin: 0;
+      color: rgba(255,255,255,.95);
+      text-transform: uppercase;
+      text-shadow:
+        0 0 18px rgba(47,124,255,.22),
+        0 0 28px rgba(0,255,136,.10);
+    }
 
-.credibility-list li {
-  justify-content: center;
-  gap: 0.75rem;
-}
+    /* Top-right actions (website equivalent of avatar + logout) */
+    .nav-action{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.82);
+      box-shadow: var(--shadowSoft);
+    }
+    .nav-action:hover{
+      background: rgba(255,255,255,.06);
+      border-color: var(--border-strong);
+      color: rgba(255,255,255,.92);
+      transform: translateY(-1px);
+    }
 
-/* New: product banner (hero visual) */
-.hero-banner {
-  margin: 2.5rem auto 0;
-  max-width: 980px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-  box-shadow: var(--glow);
-  overflow: hidden;
-}
+    /* Hero */
+    .hero{
+      min-height: 92vh;
+      display:flex;
+      align-items:center;
+      padding: 4rem 0;
+      text-align:center; /* center align hero text */
+    }
+    .hero .subheadline{
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin: 0 auto 2rem auto;
+      font-weight: 500;
+      max-width: 56rem;
+    }
+    .hero .btn-row{
+      display:flex;
+      gap: .9rem;
+      justify-content:center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
 
-.hero-banner-topbar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(0,0,0,0.25);
-}
+    /* Buttons (keep original semantics, modern styling) */
+    .btn-primary{
+      background-color: var(--accent);
+      border-color: var(--accent);
+      color: #0a0a0a;
+      font-weight: 700;
+      padding: 0.85rem 1.5rem;
+      border-radius: 999px;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s ease;
+      box-shadow: 0 12px 30px rgba(0,255,136,.18);
+    }
+    .btn-primary:hover{
+      background-color: #00cc6a;
+      border-color: #00cc6a;
+      color: #0a0a0a;
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+    .btn-outline-primary{
+      color: rgba(255,255,255,.86);
+      border-color: var(--border-strong);
+      font-weight: 700;
+      padding: 0.85rem 1.5rem;
+      border-radius: 999px;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s ease;
+      background: rgba(255,255,255,.02);
+      box-shadow: var(--shadowSoft);
+    }
+    .btn-outline-primary:hover{
+      background-color: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.18);
+    }
 
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.18);
-}
+    /* Credibility bullets */
+    .credibility-list{
+      list-style: none;
+      padding: 0;
+      margin: 2rem auto 0;
+      max-width: 50rem;
+    }
+    .credibility-list li{
+      padding: 0.5rem 0;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: .75rem;
+      text-align: left;
+    }
+    .credibility-list li i{
+      color: rgba(255,255,255,.80);
+      margin-top: .2rem;
+    }
 
-.hero-banner-body {
-  padding: 18px;
-}
+    /* Banner (homepage banner style consistent, but safe) */
+    .hero-banner{
+      margin: 2.25rem auto 0;
+      max-width: 980px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-banner::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 280px at 20% 0%, rgba(47,124,255,.26), transparent 60%),
+        radial-gradient(650px 280px at 85% 10%, rgba(0,255,136,.14), transparent 55%);
+      opacity:.85;
+      pointer-events:none;
+    }
+    .hero-banner > *{ position:relative; }
 
-.banner-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 14px;
-}
+    .hero-banner-topbar{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,.22);
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: rgba(255,255,255,.18);
+    }
+    .hero-banner-title{
+      font-size:.92rem;
+      color: rgba(255,255,255,.62);
+    }
+    .hero-banner-body{ padding: 16px; }
+    .banner-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+    }
+    .banner-panel{
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.18);
+      border-radius: var(--radiusSm);
+      padding: 14px;
+      text-align:left;
+      box-shadow: var(--shadowSoft);
+    }
+    .banner-kicker{
+      font-size:.78rem;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.55);
+      margin-bottom: 10px;
+    }
+    .banner-metric{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .banner-metric:last-child{ border-bottom:none; }
+    .metric-label{ color: rgba(255,255,255,.70); font-size:.95rem; }
+    .metric-value{ color: rgba(255,255,255,.92); font-weight:800; letter-spacing:-0.01em; }
 
-.banner-panel {
-  border: 1px solid var(--border);
-  background: var(--glass);
-  border-radius: 12px;
-  padding: 14px;
-  text-align: left;
-}
+    .metric-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius:999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.76);
+      font-size:.95rem;
+    }
+    .metric-pill i{ color: var(--accent); }
 
-.banner-kicker {
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
+    /* Section styling */
+    .section{
+      padding: 6rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-child{ border-bottom: none; }
 
-.banner-metric {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-}
+    /* Feature sections */
+    .feature-section{
+      padding: 6rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .feature-section:last-child{ border-bottom: none; }
 
-.banner-metric:last-child {
-  border-bottom: none;
-}
+    .feature-visual{
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      min-height: 400px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      box-shadow: var(--shadowSoft);
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-visual::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(540px 260px at 30% 20%, rgba(47,124,255,.22), transparent 60%),
+        radial-gradient(520px 240px at 80% 70%, rgba(0,255,136,.10), transparent 55%);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .feature-visual > div{ position:relative; text-align:center; color: rgba(255,255,255,.62); }
 
-.metric-label {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-}
+    /* Video section */
+    .video-container{
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      aspect-ratio: 16/9;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      box-shadow: var(--shadowSoft);
+      position:relative;
+      overflow:hidden;
+    }
+    .video-container::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(650px 330px at 50% 10%, rgba(47,124,255,.18), transparent 60%);
+      opacity:.8;
+      pointer-events:none;
+    }
+    .video-container > div{ position:relative; }
 
-.metric-value {
-  color: var(--text-primary);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
+    /* Logo strip */
+    .logo-strip{
+      background-color: rgba(255,255,255,.02);
+      padding: 3rem 0;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo-placeholder{
+      width: 120px;
+      height: 40px;
+      background-color: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      margin: 0 1rem;
+      display: inline-block;
+    }
 
-.metric-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(0,255,136,0.06);
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-}
+    /* CTA Section */
+    .cta-section{
+      text-align: center;
+      padding: 6rem 0;
+    }
+    .cta-section h2{ margin-bottom: 1.5rem; }
+    .form-control{
+      background-color: rgba(255,255,255,.03) !important;
+      border-color: var(--border) !important;
+      color: var(--text-primary) !important;
+      border-radius: 999px !important;
+      padding: .85rem 1rem !important;
+    }
+    .form-control::placeholder{ color: rgba(255,255,255,.40); }
 
-.metric-pill i {
-  color: var(--accent);
-}
+    /* Footer */
+    footer{
+      background-color: rgba(255,255,255,.02);
+      padding: 3rem 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
 
-/* Feature visuals: softer and more premium */
-.feature-visual,
-.video-container {
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-  border-radius:
-</style>
+    /* Responsive */
+    @media (max-width: 768px){
+      .hero{ min-height:auto; padding: 3rem 0; }
+      .banner-grid{ grid-template-columns: 1fr; }
+      .feature-section{ padding: 3rem 0; }
+      h1{ font-size: 2.5rem; }
+      h2{ font-size: 2rem; }
+    }
 
-    
+    /* Reveal animation: SAFE (visible by default) */
+    .reveal{
+      opacity: 1;
+      transform: translateY(10px);
+      transition: transform .55s ease, filter .55s ease;
+      filter: saturate(1);
+    }
+    .reveal.is-visible{
+      transform: translateY(0);
+      filter: saturate(1.02);
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">ChaosMonkey</a>
-        </div>
-    </nav>
+  <!-- PRODUCT-MATCHED HEADER (replaces navbar) -->
+  <div class="dashboard-header" style="background-color: #000000;">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-8">
+          <div class="header-content px-3 px-md-4 py-3 py-md-0">
+            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center">
+              <!-- NOTE: keep path consistent with your site structure -->
+              <img src="../assets/CM-icon.png" alt="ChaosMonkey.dev Logo" class="me-3 dashboard-logo">
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <h1 class="fade-in">Engineering analytics for AI-assisted development</h1>
-                    <p class="subheadline fade-in">AI tools changed how code is written. ChaosMonkey shows you what actually changed in your delivery outcomes.</p>
-                    
-                    <div class="fade-in">
-                        <a href="#early-access" class="btn btn-primary me-3">Request early access</a>
-                        <a href="#demo" class="btn btn-outline-primary">Watch demo (2:34)</a>
-                    </div>
-                    
-                    <ul class="credibility-list fade-in">
-                        <li><i class="bi bi-check-circle-fill"></i> Stage-based metrics (Plan & Code → Review & Merge → Deploy)</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Evidence-backed insights, not vanity dashboards</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Executive-ready output for decision-making</li>
-                    </ul>
-                </div>
+              <div>
+                <h1 class="dashboard-title mb-0 reveal">CHAOSMONKEY</h1>
+              </div>
+
+              <!-- (kept commented block exactly as provided in spirit; you can paste your exact comment if needed) -->
+              <!--
+              <div>
+                <h1 class="dashboard-title mb-0">
+                  Engineering Dashboards
+                </h1>
+                <br></br>
+                <p class="dashboard-subtitle mb-0">
+                  Monitor development metrics, IDE activity, and productivity trends
+                </p>
+              </div>
+              -->
             </div>
+          </div>
         </div>
-    </section>
 
-    <!-- Demo Video Section -->
-    <section id="demo" class="section">
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="text-center mb-4">
-                        <h3>See how it works</h3>
-                        <p class="text-muted">2–3 minute walkthrough of cause → effect → outcome</p>
-                    </div>
-                    <div class="video-container">
-                        <div>
-                            <i class="bi bi-play-circle" style="font-size: 3rem;"></i>
-                            <p>Demo video placeholder</p>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-12 col-md-4 text-start text-md-end">
+          <div class="px-3 px-md-4 pb-3 pb-md-0 d-flex align-items-center justify-content-md-end gap-3">
+            <!-- Website equivalents (since Vue components don't exist on this static page) -->
+            <a href="#early-access" class="nav-action" aria-label="Early access">
+              <i class="bi bi-envelope"></i>
+            </a>
+            <a href="#demo" class="nav-action" aria-label="Watch demo">
+              <i class="bi bi-play-circle"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section (ORIGINAL TEXT PRESERVED) -->
+  <section class="hero">
+    <div class="container-fluid">
+      <h1 class="reveal">Engineering analytics for AI-assisted development</h1>
+      <p class="subheadline reveal">AI tools changed how code is written. ChaosMonkey shows you what actually changed in your delivery outcomes.</p>
+
+      <div class="btn-row reveal">
+        <a href="#early-access" class="btn btn-primary">Request early access</a>
+        <a href="#demo" class="btn btn-outline-primary">Watch demo (2:34)</a>
+      </div>
+
+      <!-- Banner (design element; text copy unchanged elsewhere) -->
+      <div class="hero-banner reveal" aria-label="ChaosMonkey product banner">
+        <div class="hero-banner-topbar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="hero-banner-title">ChaosMonkey • Pipeline → Insights</span>
+        </div>
+        <div class="hero-banner-body">
+          <div class="banner-grid">
+            <div class="banner-panel">
+              <div class="banner-kicker">AI Usage Signals</div>
+              <div class="banner-metric">
+                <span class="metric-label">AI-assisted sessions</span>
+                <span class="metric-value">↑ 18% WoW</span>
+              </div>
+              <div class="banner-metric">
+                <span class="metric-label">Assists per session</span>
+                <span class="metric-value">3.2</span>
+              </div>
+              <div class="banner-metric">
+                <span class="metric-label">Time per session</span>
+                <span class="metric-value">14m</span>
+              </div>
             </div>
+            <div class="banner-panel">
+              <div class="banner-kicker">Performance Insights</div>
+              <div class="metric-pill mb-2"><i class="bi bi-check-circle-fill"></i> Evidence-backed insights</div>
+              <div class="metric-pill mb-2"><i class="bi bi-diagram-3-fill"></i> Stage-based narrative</div>
+              <div class="metric-pill"><i class="bi bi-rocket-takeoff-fill"></i> Outcome correlation</div>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- Logo Strip -->
-    <section class="logo-strip">
-        <div class="container-fluid">
-            <p class="text-muted mb-4">Built with engineering leaders from</p>
+      <ul class="credibility-list reveal">
+        <li><i class="bi bi-check-circle-fill"></i> Stage-based metrics (Plan &amp; Code → Review &amp; Merge → Deploy)</li>
+        <li><i class="bi bi-check-circle-fill"></i> Evidence-backed insights, not vanity dashboards</li>
+        <li><i class="bi bi-check-circle-fill"></i> Executive-ready output for decision-making</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Demo Video Section (ORIGINAL TEXT PRESERVED) -->
+  <section id="demo" class="section">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="text-center mb-4">
+            <h3 class="reveal">See how it works</h3>
+            <p class="text-muted reveal">2–3 minute walkthrough of cause → effect → outcome</p>
+          </div>
+          <div class="video-container reveal">
             <div>
-                <span class="logo-placeholder"></span>
-                <span class="logo-placeholder"></span>
-                <span class="logo-placeholder"></span>
-                <span class="logo-placeholder"></span>
+              <i class="bi bi-play-circle" style="font-size: 3rem;"></i>
+              <p class="mb-0">Demo video placeholder</p>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Feature 1: Pipeline View -->
-    <section class="feature-section">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h3>Stage-based visibility</h3>
-                    <p>Most tools fragment your engineering story across dashboards. You see commit counts, PR metrics, and deployment stats in isolation.</p>
-                    <p>ChaosMonkey connects the full pipeline: AI usage patterns → workflow behavior → delivery outcomes. One narrative, not three.</p>
-                    <ul class="credibility-list">
-                        <li><i class="bi bi-arrow-right-circle"></i> Plan & Code: IDE adoption and session patterns</li>
-                        <li><i class="bi bi-arrow-right-circle"></i> Review & Merge: PR dynamics and reviewer load</li>
-                        <li><i class="bi bi-arrow-right-circle"></i> Deploy & Operate: Reliability and recovery signals</li>
-                    </ul>
-                </div>
-                <div class="col-lg-6">
-                    <div class="feature-visual">
-                        <div>
-                            <i class="bi bi-diagram-3" style="font-size: 4rem;"></i>
-                            <p>Pipeline visualization placeholder</p>
-                        </div>
-                    </div>
-                </div>
+  <!-- Logo Strip (ORIGINAL TEXT PRESERVED) -->
+  <section class="logo-strip">
+    <div class="container-fluid">
+      <p class="text-muted mb-4 reveal">Built with engineering leaders from</p>
+      <div class="reveal">
+        <span class="logo-placeholder"></span>
+        <span class="logo-placeholder"></span>
+        <span class="logo-placeholder"></span>
+        <span class="logo-placeholder"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 1: Pipeline View (ORIGINAL TEXT PRESERVED) -->
+  <section class="feature-section">
+    <div class="container-fluid">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <h3 class="reveal">Stage-based visibility</h3>
+          <p class="reveal">Most tools fragment your engineering story across dashboards. You see commit counts, PR metrics, and deployment stats in isolation.</p>
+          <p class="reveal">ChaosMonkey connects the full pipeline: AI usage patterns → workflow behavior → delivery outcomes. One narrative, not three.</p>
+          <ul class="credibility-list reveal" style="max-width:none;margin-left:0;">
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> Plan &amp; Code: IDE adoption and session patterns</li>
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> Review &amp; Merge: PR dynamics and reviewer load</li>
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> Deploy &amp; Operate: Reliability and recovery signals</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="feature-visual reveal">
+            <div>
+              <i class="bi bi-diagram-3" style="font-size: 4rem;"></i>
+              <p class="mb-0">Pipeline visualization placeholder</p>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Feature 2: AI Usage Signals -->
-    <section class="feature-section">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-6 order-lg-2">
-                    <h3>AI impact without surveillance</h3>
-                    <p>Engineering leaders need to understand AI's effect on delivery, without monitoring individual developers.</p>
-                    <p>ChaosMonkey measures patterns, not people. Adoption rates, workflow shifts, and outcome correlations at the team level.</p>
-                    <ul class="credibility-list">
-                        <li><i class="bi bi-arrow-right-circle"></i> IDE adoption patterns by team</li>
-                        <li><i class="bi bi-arrow-right-circle"></i> AI-assisted vs manual workflow differences</li>
-                        <li><i class="bi bi-arrow-right-circle"></i> Leader-safe aggregation and reporting</li>
-                    </ul>
-                </div>
-                <div class="col-lg-6 order-lg-1">
-                    <div class="feature-visual">
-                        <div>
-                            <i class="bi bi-graph-up" style="font-size: 4rem;"></i>
-                            <p>AI usage patterns placeholder</p>
-                        </div>
-                    </div>
-                </div>
+  <!-- Feature 2: AI Usage Signals (ORIGINAL TEXT PRESERVED) -->
+  <section class="feature-section">
+    <div class="container-fluid">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6 order-lg-2">
+          <h3 class="reveal">AI impact without surveillance</h3>
+          <p class="reveal">Engineering leaders need to understand AI's effect on delivery, without monitoring individual developers.</p>
+          <p class="reveal">ChaosMonkey measures patterns, not people. Adoption rates, workflow shifts, and outcome correlations at the team level.</p>
+          <ul class="credibility-list reveal" style="max-width:none;margin-left:0;">
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> IDE adoption patterns by team</li>
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> AI-assisted vs manual workflow differences</li>
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> Leader-safe aggregation and reporting</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="feature-visual reveal">
+            <div>
+              <i class="bi bi-graph-up" style="font-size: 4rem;"></i>
+              <p class="mb-0">AI usage patterns placeholder</p>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Feature 3: Review & Merge Health -->
-    <section class="feature-section">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h3>Where delivery actually breaks</h3>
-                    <p>The review stage is where AI's indirect effects surface: larger PRs, reviewer concentration, and cycle time risks.</p>
-                    <p>ChaosMonkey identifies these patterns before they become bottlenecks, with clear evidence about what changed and why it matters.</p>
-                    <ul class="credibility-list">
-                        <li><i class="bi bi-arrow-right-circle"></i> PR size dynamics and reviewer load</li>
-                        <li><i class="bi bi-arrow-right-circle"></i> Cycle time risk identification</li>
-                        <li><i class="bi bi-arrow-right-circle"></i> AI's impact on code review patterns</li>
-                    </ul>
-                </div>
-                <div class="col-lg-6">
-                    <div class="feature-visual">
-                        <div>
-                            <i class="bi bi-git" style="font-size: 4rem;"></i>
-                            <p>Review metrics placeholder</p>
-                        </div>
-                    </div>
-                </div>
+  <!-- Feature 3: Review & Merge Health (ORIGINAL TEXT PRESERVED) -->
+  <section class="feature-section">
+    <div class="container-fluid">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <h3 class="reveal">Where delivery actually breaks</h3>
+          <p class="reveal">The review stage is where AI's indirect effects surface: larger PRs, reviewer concentration, and cycle time risks.</p>
+          <p class="reveal">ChaosMonkey identifies these patterns before they become bottlenecks, with clear evidence about what changed and why it matters.</p>
+          <ul class="credibility-list reveal" style="max-width:none;margin-left:0;">
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> PR size dynamics and reviewer load</li>
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> Cycle time risk identification</li>
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> AI's impact on code review patterns</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="feature-visual reveal">
+            <div>
+              <i class="bi bi-git" style="font-size: 4rem;"></i>
+              <p class="mb-0">Review metrics placeholder</p>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Feature 4: Deploy & Operate Outcomes -->
-    <section class="feature-section">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-6 order-lg-2">
-                    <h3>Outcomes tied to behavior</h3>
-                    <p>Failed deployments and recovery time are the ultimate indicators of workflow health. But most tools can't connect these back to upstream decisions.</p>
-                    <p>ChaosMonkey traces deployment reliability back to AI adoption patterns, review dynamics, and workflow changes.</p>
-                    <ul class="credibility-list">
-                        <li><i class="bi bi-arrow-right-circle"></i> Deployment failure rate correlation</li>
-                        <li><i class="bi bi-arrow-right-circle"></i> Recovery time analysis</li>
-                        <li><i class="bi bi-arrow-right-circle"></i> Reliability tradeoff insights</li>
-                    </ul>
-                </div>
-                <div class="col-lg-6 order-lg-1">
-                    <div class="feature-visual">
-                        <div>
-                            <i class="bi bi-rocket-takeoff" style="font-size: 4rem;"></i>
-                            <p>Deployment outcomes placeholder</p>
-                        </div>
-                    </div>
-                </div>
+  <!-- Feature 4: Deploy & Operate Outcomes (ORIGINAL TEXT PRESERVED) -->
+  <section class="feature-section">
+    <div class="container-fluid">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6 order-lg-2">
+          <h3 class="reveal">Outcomes tied to behavior</h3>
+          <p class="reveal">Failed deployments and recovery time are the ultimate indicators of workflow health. But most tools can't connect these back to upstream decisions.</p>
+          <p class="reveal">ChaosMonkey traces deployment reliability back to AI adoption patterns, review dynamics, and workflow changes.</p>
+          <ul class="credibility-list reveal" style="max-width:none;margin-left:0;">
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> Deployment failure rate correlation</li>
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> Recovery time analysis</li>
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> Reliability tradeoff insights</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="feature-visual reveal">
+            <div>
+              <i class="bi bi-rocket-takeoff" style="font-size: 4rem;"></i>
+              <p class="mb-0">Deployment outcomes placeholder</p>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Feature 5: Performance Insights -->
-    <section class="feature-section">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h3>Insights, not dashboards</h3>
-                    <p>Engineering leaders don't need more dashboards. They need clear prioritization of what changed, why it matters, and what to do about it.</p>
-                    <p>ChaosMonkey delivers executive-ready insights with evidence backing every recommendation. No naked numbers, no vanity metrics.</p>
-                    <ul class="credibility-list">
-                        <li><i class="bi bi-arrow-right-circle"></i> Prioritized impact assessment</li>
-                        <li><i class="bi bi-arrow-right-circle"></i> Clear "what changed / why it matters / evidence"</li>
-                        <li><i class="bi bi-arrow-right-circle"></i> Actionable recommendations with expected outcomes</li>
-                    </ul>
-                </div>
-                <div class="col-lg-6">
-                    <div class="feature-visual">
-                        <div>
-                            <i class="bi bi-lightbulb" style="font-size: 4rem;"></i>
-                            <p>Performance insights placeholder</p>
-                        </div>
-                    </div>
-                </div>
+  <!-- Feature 5: Performance Insights (ORIGINAL TEXT PRESERVED) -->
+  <section class="feature-section">
+    <div class="container-fluid">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <h3 class="reveal">Insights, not dashboards</h3>
+          <p class="reveal">Engineering leaders don't need more dashboards. They need clear prioritization of what changed, why it matters, and what to do about it.</p>
+          <p class="reveal">ChaosMonkey delivers executive-ready insights with evidence backing every recommendation. No naked numbers, no vanity metrics.</p>
+          <ul class="credibility-list reveal" style="max-width:none;margin-left:0;">
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> Prioritized impact assessment</li>
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> Clear "what changed / why it matters / evidence"</li>
+            <li style="justify-content:flex-start;"><i class="bi bi-arrow-right-circle"></i> Actionable recommendations with expected outcomes</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="feature-visual reveal">
+            <div>
+              <i class="bi bi-lightbulb" style="font-size: 4rem;"></i>
+              <p class="mb-0">Performance insights placeholder</p>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- CTA Section -->
-    <section id="early-access" class="cta-section">
-        <div class="container-fluid">
-            <h2>See your team's AI impact</h2>
-            <p class="text-muted">Early access available for select engineering teams</p>
-            
-            <div class="row justify-content-center mt-4">
-                <div class="col-lg-6">
-                    <form class="d-flex">
-                        <input type="email" class="form-control me-2" placeholder="Work email" style="background-color: var(--bg-secondary); border-color: var(--border); color: var(--text-primary);">
-                        <button type="submit" class="btn btn-primary">Get access</button>
-                    </form>
-                    <p class="text-muted mt-3">Founder-led onboarding. No credit card required.</p>
-                </div>
-            </div>
+  <!-- CTA Section (ORIGINAL TEXT PRESERVED) -->
+  <section id="early-access" class="cta-section">
+    <div class="container-fluid">
+      <h2 class="reveal">See your team's AI impact</h2>
+      <p class="text-muted reveal">Early access available for select engineering teams</p>
+
+      <div class="row justify-content-center mt-4">
+        <div class="col-lg-6">
+          <form class="d-flex gap-2 reveal">
+            <input type="email" class="form-control" placeholder="Work email">
+            <button type="submit" class="btn btn-primary">Get access</button>
+          </form>
+          <p class="text-muted mt-3 reveal">Founder-led onboarding. No credit card required.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container-fluid">
-            <p class="text-muted">© 2026 ChaosMonkey. Built for engineering leaders, by engineers.</p>
-            <p class="text-muted">
-                <a href="#" style="color: var(--text-muted); text-decoration: none;">Privacy</a> • 
-                <a href="#" style="color: var(--text-muted); text-decoration: none;">Terms</a> • 
-                <a href="#" style="color: var(--text-muted); text-decoration: none;">Contact</a>
-            </p>
-        </div>
-    </footer>
+  <!-- Footer (ORIGINAL TEXT PRESERVED) -->
+  <footer>
+    <div class="container-fluid">
+      <p class="text-muted">© 2026 ChaosMonkey. Built for engineering leaders, by engineers.</p>
+      <p class="text-muted">
+        <a href="#" style="color: var(--text-muted); text-decoration: none;">Privacy</a> •
+        <a href="#" style="color: var(--text-muted); text-decoration: none;">Terms</a> •
+        <a href="#" style="color: var(--text-muted); text-decoration: none;">Contact</a>
+      </p>
+    </div>
+  </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // Simple fade-in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationDelay = '0.2s';
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, observerOptions);
+  <script>
+    // SAFE reveal-on-scroll: content stays visible even if JS fails
+    (function () {
+      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const els = Array.from(document.querySelectorAll(".reveal"));
 
-        // Observe elements
-        document.querySelectorAll('h2, h3, p, .feature-visual').forEach(el => {
-            observer.observe(el);
+      if (prefersReduced) {
+        els.forEach(el => el.classList.add("is-visible"));
+        return;
+      }
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
         });
+      }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+      els.forEach(el => io.observe(el));
+    })();
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
+
