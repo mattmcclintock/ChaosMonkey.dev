@@ -251,26 +251,28 @@
       setMsg("", "");
 
       try {
-        const res = await fetch(ENDPOINT, {
-        method: "POST",
-        body: JSON.stringify({ email })
-      });
+  const res = await fetch(ENDPOINT, {
+    method: "POST",
+    body: JSON.stringify({ email })
+  });
 
-        if (!res.ok) throw new Error(await res.text());
+  // Always read the body safely (some responses have empty body)
+  const bodyText = await res.text().catch(() => "");
 
-        setMsg("✅ Requested. We’ll be in touch.", "ok");
-        emailEl.value = "";
+  if (res.status === 200) {
+    setMsg("✅ Requested. We’ll be in touch.", "ok");
+    emailEl.value = "";
+    setTimeout(closeModal, 700);
+    return;
+  }
 
-        setTimeout(closeModal, 700);
-      } catch (err) {
-        console.error(err);
-        setMsg("⚠️ Could not submit. If this persists, it’s likely CORS on the Lambda Function URL.", "error");
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Request access";
-      }
-    });
-  })();
+  // Show server reason if any
+  setMsg(`⚠️ Submit failed (${res.status}). ${bodyText || ""}`.trim(), "error");
+} catch (err) {
+  console.error(err);
+  setMsg("⚠️ Network error (browser blocked request).", "error");
+}
+
   </script>
 </body>
 </html>
