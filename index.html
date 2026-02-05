@@ -254,13 +254,17 @@
     submitBtn.textContent = "Submitting...";
     setMsg("", "");
 
+    // IMPORTANT: if CORS blocks the response, fetch throws even though Lambda may still run.
+    // So we:
+    // 1) try normal fetch (so it works once CORS is correct)
+    // 2) if it throws, fall back to no-cors and treat as success (fire-and-forget MVP)
     try {
-      // ✅ No headers => avoids preflight in many browsers
       const res = await fetch(ENDPOINT, {
         method: "POST",
         body: JSON.stringify({ email })
       });
 
+      // If we can read the response, great:
       const bodyText = await res.text().catch(() => "");
 
       if (res.status === 200) {
@@ -272,8 +276,25 @@
         setMsg(`⚠️ Submit failed (${res.status}). ${bodyText}`.trim(), "error");
       }
     } catch (err) {
-      console.error(err);
-      setMsg("⚠️ Network error (browser blocked request).", "error");
+      console.warn("Fetch blocked (likely CORS). Falling back to no-cors.", err);
+
+      try {
+        // Fire-and-forget: request still goes out, but browser won't let us read status.
+        await fetch(ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify({ email })
+        });
+
+        // Treat as success (you already confirmed S3 writes are happening)
+        setMsg("✅ Requested. We’ll be in touch.", "ok");
+        emailEl.value = "";
+        emailEl.classList.remove("is-invalid");
+        setTimeout(closeModal, 700);
+      } catch (err2) {
+        console.error("no-cors fallback also failed", err2);
+        setMsg("⚠️ Network error. Please try again.", "error");
+      }
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = "Request access";
@@ -281,6 +302,7 @@
   });
 })();
 </script>
+
 
 
   
