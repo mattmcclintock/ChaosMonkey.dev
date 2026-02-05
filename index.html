@@ -84,11 +84,22 @@
   </style>
 </head>
 <body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <img src="ChaosMonkey_01@2x.png" alt="ChaosMonkey Logo" class="logo" />
   <p>The world’s first holistic telemetry tracking tool for engineering leaders, by engineering leaders.</p>
   <em>Currently operating in stealth mode. Stay tuned.</em>
 
-  <!-- ⭐ New Request Access Button -->
+
+
+<a href="#" class="cta"
+   data-bs-toggle="modal" data-bs-target="#earlyAccessModal"
+   style="display:inline-block; padding:0.75rem 1.5rem; border-radius:999px; background:#000; color:#fff; font-weight:600; text-decoration:none; margin-top:1.5rem; transition:0.15s;"
+   onmouseover="this.style.background='#111'" onmouseout="this.style.background='#000'">
+  Request Private Access
+</a>
+
+
+  <!-- ⭐ New Request Access Button 
   <a 
     href="https://forms.gle/WEEvvuyQNjNGoVFT6"
     target="_blank"
@@ -109,8 +120,98 @@
   >
     Request Private Access
   </a>
-
+-->
   <footer>&copy; 2026 ChaosMonkey</footer>
+  <div class="modal fade" id="earlyAccessModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background:#0b0f14; color:#fff; border:1px solid rgba(255,255,255,.08); border-radius:16px;">
+      <div class="modal-header" style="border-bottom:1px solid rgba(255,255,255,.08);">
+        <h5 class="modal-title" style="font-weight:800;">Request early access</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <p style="color:rgba(255,255,255,.75); margin-bottom:0.75rem;">
+          Get the private demo link + early access updates.
+        </p>
+
+        <form id="earlyAccessForm" novalidate>
+          <div class="mb-3">
+            <label class="form-label" for="earlyAccessEmail" style="color:rgba(255,255,255,.8);">Work email</label>
+            <input id="earlyAccessEmail" name="email" type="email" class="form-control"
+                   placeholder="you@company.com" required
+                   style="background:rgba(255,255,255,.06); color:#fff; border:1px solid rgba(255,255,255,.12); border-radius:12px;">
+            <div class="invalid-feedback">
+              Please enter a valid email.
+            </div>
+          </div>
+
+          <div id="earlyAccessMsg" class="small" style="min-height:1.25rem; color:rgba(255,255,255,.75);"></div>
+
+          <button id="earlyAccessSubmit" type="submit" class="btn btn-primary w-100" style="border-radius:12px; font-weight:700;">
+            Request access
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(() => {
+  const ENDPOINT = "https://gacqawc6hol2is7vd2se7e4bci0wbnfr.lambda-url.us-east-2.on.aws/";
+
+  const form = document.getElementById("earlyAccessForm");
+  const emailInput = document.getElementById("earlyAccessEmail");
+  const msg = document.getElementById("earlyAccessMsg");
+  const submitBtn = document.getElementById("earlyAccessSubmit");
+
+  if (!form || !emailInput) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.textContent = "";
+
+    const email = (emailInput.value || "").trim();
+    const valid = emailInput.checkValidity();
+
+    emailInput.classList.toggle("is-invalid", !valid);
+    if (!valid) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+
+      if (!res.ok) throw new Error(await res.text());
+
+      msg.textContent = "✅ Got it. Check your inbox soon.";
+      emailInput.value = "";
+      emailInput.classList.remove("is-invalid");
+      submitBtn.textContent = "Request access";
+      submitBtn.disabled = false;
+
+      // Optional: auto-close after a moment (no UI changes elsewhere)
+      setTimeout(() => {
+        const modalEl = document.getElementById("earlyAccessModal");
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        modal?.hide();
+      }, 900);
+
+    } catch (err) {
+      console.error(err);
+      msg.textContent = "⚠️ Something went wrong. Try again.";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Request access";
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
 
