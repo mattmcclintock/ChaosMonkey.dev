@@ -130,29 +130,7 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <div class="modal-body">
-        <p style="color:rgba(255,255,255,.75); margin-bottom:0.75rem;">
-          Get the private demo link + early access updates.
-        </p>
-
-        <form id="earlyAccessForm" novalidate>
-          <div class="mb-3">
-            <label class="form-label" for="earlyAccessEmail" style="color:rgba(255,255,255,.8);">Work email</label>
-            <input id="earlyAccessEmail" name="email" type="email" class="form-control"
-                   placeholder="you@company.com" required
-                   style="background:rgba(255,255,255,.06); color:#fff; border:1px solid rgba(255,255,255,.12); border-radius:12px;">
-            <div class="invalid-feedback">
-              Please enter a valid email.
-            </div>
-          </div>
-
-          <div id="earlyAccessMsg" class="small" style="min-height:1.25rem; color:rgba(255,255,255,.75);"></div>
-
-          <button id="earlyAccessSubmit" type="submit" class="btn btn-primary w-100" style="border-radius:12px; font-weight:700;">
-            Request access
-          </button>
-        </form>
-      </div>
+      
     </div>
   </div>
 </div>
@@ -212,6 +190,31 @@
 })();
 </script>
 
+
+
+  <div class="modal-body">
+        <p style="color:rgba(255,255,255,.75); margin-bottom:0.75rem;">
+          Get the private demo link + early access updates.
+        </p>
+
+        <form id="earlyAccessForm" novalidate>
+          <div class="mb-3">
+            <label class="form-label" for="earlyAccessEmail" style="color:rgba(255,255,255,.8);">Work email</label>
+            <input id="earlyAccessEmail" name="email" type="email" class="form-control"
+                   placeholder="you@company.com" required
+                   style="background:rgba(255,255,255,.06); color:#fff; border:1px solid rgba(255,255,255,.12); border-radius:12px;">
+            <div class="invalid-feedback">
+              Please enter a valid email.
+            </div>
+          </div>
+
+          <div id="earlyAccessMsg" class="small" style="min-height:1.25rem; color:rgba(255,255,255,.75);"></div>
+
+          <button id="earlyAccessSubmit" type="submit" class="btn btn-primary w-100" style="border-radius:12px; font-weight:700;">
+            Request access
+          </button>
+        </form>
+      </div>
 </body>
 </html>
 
