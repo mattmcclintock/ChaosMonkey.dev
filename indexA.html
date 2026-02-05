@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -204,7 +204,7 @@
     }
     .section:last-child{ border-bottom:none; }
 
-    /* ===== HERO (STACKED: text above demo above first graphic) ===== */
+    /* ===== HERO ===== */
     .hero{
       padding: 3.25rem 0 2.75rem;
     }
@@ -227,7 +227,6 @@
       margin-bottom: 1.25rem;
     }
 
-    /* Credibility list (from your original HTML) */
     .credibility-list{
       list-style:none;
       padding:0;
@@ -254,7 +253,7 @@
       color: rgba(255,255,255,.55);
     }
 
-    /* ===== Demo placeholder (inside hero, per your request) ===== */
+    /* ===== Demo placeholder / video shell ===== */
     .video-shell{
       border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,.14);
@@ -263,7 +262,7 @@
       overflow:hidden;
       position: relative;
       max-width: 980px;
-      margin: 0 auto;
+      margin: 1.75rem auto 0;
     }
     .video-shell::after{
       content:"";
@@ -282,7 +281,7 @@
       color: rgba(255,255,255,.72);
     }
 
-    /* ===== Screenshot frame (black-Apple / glass) ===== */
+    /* ===== Screenshot frame ===== */
     .shot-frame{
       border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,.14);
@@ -353,7 +352,7 @@
       margin: 0 .8rem;
     }
 
-    /* ===== Feature blocks (keep your original copy) ===== */
+    /* ===== Feature blocks ===== */
     .feature-section{ padding: 4.75rem 0; border-bottom: 1px solid rgba(255,255,255,.08); }
     .feature-section:last-child{ border-bottom:none; }
 
@@ -393,6 +392,16 @@
     }
     .form-control::placeholder{ color: rgba(255,255,255,.40); }
 
+    .cta-status{
+      margin-top: 12px;
+      font-size: .95rem;
+      color: rgba(255,255,255,.70);
+      min-height: 24px;
+    }
+    .cta-status.success{ color: rgba(140,255,180,.95); }
+    .cta-status.error{ color: rgba(255,120,120,.95); }
+    .cta-status small{ color: rgba(255,255,255,.55); }
+
     /* ===== Footer ===== */
     footer{
       padding: 3rem 0;
@@ -403,7 +412,7 @@
     footer a{ color: rgba(255,255,255,.58); text-decoration:none; }
     footer a:hover{ color: rgba(255,255,255,.76); }
 
-    /* ===== Simple reveal animation (safe: visible even if JS fails) ===== */
+    /* ===== Reveal animation ===== */
     .reveal{
       opacity: 1;
       transform: translateY(10px);
@@ -412,7 +421,6 @@
     }
     .reveal.is-visible{ transform: translateY(0); filter: saturate(1.02); }
 
-    /* ===== Responsive ===== */
     @media (max-width: 768px){
       .credibility-list{ text-align:left; }
       .feature-visual{ min-height: 300px; }
@@ -428,7 +436,6 @@
         <div class="col-12 col-md-8">
           <div class="px-2 px-md-3 py-3 py-md-0" style="min-height:72px; display:flex; align-items:center;">
             <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-              <!-- Update path if needed -->
               <img src="CM-icon.png" alt="ChaosMonkey.dev Logo" class="me-3 dashboard-logo" />
               <div>
                 <h1 class="dashboard-title mb-0">CHAOSMONKEY</h1>
@@ -447,11 +454,10 @@
     </div>
   </div>
 
-  <!-- HERO (stacked: hero text above first graphic + demo placeholder included) -->
+  <!-- HERO -->
   <section class="hero">
-    <div class="container-fluid" style="align:center">
+    <div class="container-fluid">
 
-      <!-- Hero text (original copy kept) -->
       <div class="hero-text reveal">
         <div class="kicker"><span class="dot"></span> Engineering analytics for AI-assisted development</div>
         <h1>Engineering analytics for AI-assisted development</h1>
@@ -475,13 +481,9 @@
           Slightly ironic name, serious intent: we measure the chaos so your delivery pipeline doesn’t have to.
         </div>
       </div>
-    </div>
-  </section>
 
-      <!-- Demo placeholder (you asked to include it) -->
-
-       <!--
-      <div id="demo" class="reveal" style="margin-top:1.75rem;">
+      <!-- Demo placeholder -->
+      <div id="demo" class="reveal">
         <div class="video-shell">
           <div class="video-16x9">
             <div class="text-center">
@@ -493,29 +495,12 @@
         </div>
       </div>
 
-
-
-     <div class="video-16x9 p-0">
-  <video
-    controls
-    playsinline
-    preload="metadata"
-    poster="assets/video/demo-poster.png"
-    style="width:100%; height:100%; border-radius:16px;"
-  >
-    <source src="assets/video/demo.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-</div>
-   -->
-
-      <!-- First graphic goes AFTER hero text + demo -->
+      <!-- First graphic -->
       <div class="shot-frame reveal">
         <div class="shot-topbar">
           <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
           <div class="shot-label">AI Usage Signals — org view</div>
         </div>
-        <!-- Update src to your actual screenshot path -->
         <img class="product-shot" src="assets/screens/ai-usage-signals.png" alt="AI Usage Signals screenshot" loading="lazy" />
         <div class="shot-caption">Real-time AI adoption, intensity, and utilization—across IDEs, at the org level.</div>
       </div>
@@ -536,7 +521,7 @@
     </div>
   </section>
 
-  <!-- How it works (lightweight) -->
+  <!-- How it works -->
   <section id="how-it-works" class="section">
     <div class="container-fluid">
       <div class="text-center mb-4">
@@ -580,7 +565,7 @@
     </div>
   </section>
 
-  <!-- Feature 1: Pipeline View (original copy kept) -->
+  <!-- Feature 1 -->
   <section class="feature-section">
     <div class="container-fluid">
       <div class="row align-items-center g-4">
@@ -608,7 +593,7 @@
     </div>
   </section>
 
-  <!-- Feature 2: AI Usage Signals (original copy kept) -->
+  <!-- Feature 2 -->
   <section class="feature-section">
     <div class="container-fluid">
       <div class="row align-items-center g-4">
@@ -636,7 +621,7 @@
     </div>
   </section>
 
-  <!-- Feature 3: Review & Merge Health (original copy kept) -->
+  <!-- Feature 3 -->
   <section class="feature-section">
     <div class="container-fluid">
       <div class="row align-items-center g-4">
@@ -664,7 +649,7 @@
     </div>
   </section>
 
-  <!-- Feature 4: Deploy & Operate Outcomes (original copy kept) -->
+  <!-- Feature 4 -->
   <section class="feature-section">
     <div class="container-fluid">
       <div class="row align-items-center g-4">
@@ -692,7 +677,7 @@
     </div>
   </section>
 
-  <!-- Feature 5: Performance Insights (original copy kept) -->
+  <!-- Feature 5 -->
   <section class="feature-section">
     <div class="container-fluid">
       <div class="row align-items-center g-4">
@@ -720,7 +705,7 @@
     </div>
   </section>
 
-  <!-- CTA (original copy kept) -->
+  <!-- CTA -->
   <section id="early-access" class="cta-section">
     <div class="container-fluid">
       <h2 class="reveal">See your team's AI impact</h2>
@@ -728,10 +713,12 @@
 
       <div class="row justify-content-center mt-4">
         <div class="col-lg-6">
-          <form class="d-flex gap-2 reveal">
-            <input type="email" class="form-control" placeholder="Work email" />
-            <button type="submit" class="btn btn-primary">Get access</button>
+          <form id="earlyAccessForm" class="d-flex gap-2 reveal" novalidate>
+            <input id="workEmail" name="email" type="email" class="form-control" placeholder="Work email" autocomplete="email" required />
+            <button id="earlyAccessSubmit" type="submit" class="btn btn-primary">Get access</button>
           </form>
+          <div id="ctaStatus" class="cta-status reveal" aria-live="polite"></div>
+
           <p class="text-muted mt-3 reveal">Founder-led onboarding. No credit card required.</p>
         </div>
       </div>
@@ -754,7 +741,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // Reveal-on-scroll (safe: content visible even if JS fails)
+    // ================================
+    // Reveal-on-scroll (safe)
+    // ================================
     (function () {
       const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const els = Array.from(document.querySelectorAll(".reveal"));
@@ -784,6 +773,87 @@
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
+
+    // ================================
+    // Early Access form -> AWS Lambda URL
+    // (matches your current LP behavior)
+    // ================================
+    (function () {
+      const ENDPOINT = "https://gacqawc6hol2is7vd2se7e4bci0wbnfr.lambda-url.us-east-2.on.aws/";
+
+      const form = document.getElementById("earlyAccessForm");
+      const emailEl = document.getElementById("workEmail");
+      const submitBtn = document.getElementById("earlyAccessSubmit");
+      const statusEl = document.getElementById("ctaStatus");
+
+      if (!form || !emailEl || !submitBtn || !statusEl) return;
+
+      function setStatus(text, kind) {
+        statusEl.textContent = text || "";
+        statusEl.className = "cta-status reveal is-visible" + (kind ? (" " + kind) : "");
+      }
+
+      function isValidEmail(v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || "").trim());
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = (emailEl.value || "").trim();
+        const ok = isValidEmail(email);
+
+        if (!ok) {
+          setStatus("Please enter a valid email (example: you@company.com).", "error");
+          emailEl.focus();
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting…";
+        setStatus("");
+
+        // IMPORTANT: if CORS blocks the response, fetch throws even though Lambda may still run.
+        // So we:
+        // 1) try normal fetch (so it works once CORS is correct)
+        // 2) if it throws, fall back to no-cors and treat as success (fire-and-forget MVP)
+        try {
+          const res = await fetch(ENDPOINT, {
+            method: "POST",
+            body: JSON.stringify({ email })
+          });
+
+          const bodyText = await res.text().catch(() => "");
+
+          if (res.status === 200) {
+            setStatus("✅ Requested. We’ll be in touch.", "success");
+            emailEl.value = "";
+          } else {
+            setStatus(`⚠️ Submit failed (${res.status}). ${bodyText}`.trim(), "error");
+          }
+        } catch (err) {
+          console.warn("Fetch blocked (likely CORS). Falling back to no-cors.", err);
+
+          try {
+            await fetch(ENDPOINT, {
+              method: "POST",
+              mode: "no-cors",
+              body: JSON.stringify({ email })
+            });
+
+            // Treat as success (fire-and-forget MVP)
+            setStatus("✅ Requested. We’ll be in touch.", "success");
+            emailEl.value = "";
+          } catch (err2) {
+            console.error("no-cors fallback also failed", err2);
+            setStatus("⚠️ Network error. Please try again.", "error");
+          }
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Get access";
+        }
+      });
+    })();
   </script>
 </body>
 </html>
