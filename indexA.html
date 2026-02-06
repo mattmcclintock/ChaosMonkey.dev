@@ -482,18 +482,37 @@
         </div>
       </div>
 
-      <!-- Demo placeholder -->
-      <div id="demo" class="reveal">
-        <div class="video-shell">
-          <div class="video-16x9">
-            <div class="text-center">
-              <i class="bi bi-play-circle" style="font-size:3rem;"></i>
-              <div class="mt-2" style="font-weight:800; color: rgba(255,255,255,.88);">ChaosMonkey Demo</div>
-              <div class="text-muted" style="font-size:.95rem;"><a href="https://chaosmonkey-demo.s3.us-east-2.amazonaws.com/ChaosMonkey_demo_v3.mp4">2–3 minute walkthrough of cause → effect → outcome</a></div>
-            </div>
-          </div>
-        </div>
+     <!-- Demo video (S3) -->
+<div id="demo" class="reveal">
+  <div class="video-shell">
+    <div class="video-16x9 p-0">
+      <video
+        controls
+        playsinline
+        preload="metadata"
+        poster="assets/video/demo-poster.jpg"
+        style="width:100%; height:100%; border-radius:18px; display:block;"
+      >
+        <source src="https://chaosmonkey-demo.s3.us-east-2.amazonaws.com/ChaosMonkey_demo_v3.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div style="padding: 12px 14px 14px; border-top: 1px solid rgba(255,255,255,.08); background: rgba(0,0,0,.14); text-align:center;">
+      <div style="font-weight:800; color: rgba(255,255,255,.88);">ChaosMonkey Demo</div>
+      <div class="text-muted" style="font-size:.95rem;">
+        2–3 minute walkthrough of cause → effect → outcome
+        ·
+        <a href="https://chaosmonkey-demo.s3.us-east-2.amazonaws.com/ChaosMonkey_demo_v3.mp4"
+           target="_blank" rel="noopener"
+           style="color: rgba(255,255,255,.78); text-decoration: underline;">
+          Open video
+        </a>
       </div>
+    </div>
+  </div>
+</div>
+
 
       <!-- First graphic -->
       <div class="shot-frame reveal">
