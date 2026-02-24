@@ -1,1 +1,307 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChaosMonkey</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%;
+      background-color: #ffffff;
+      color: #000000;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    img.logo {
+      width: 260px;
+      height: auto;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 1.25rem;
+      max-width: 600px;
+      line-height: 1.5;
+      margin: 0.5rem 0;
+      color: #333333;
+    }
+
+    em {
+      color: #666666;
+      font-style: normal;
+      margin-top: 1rem;
+      display: block;
+      font-size: 1rem;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #888888;
+      user-select: none;
+    }
+
+    body {
+      opacity: 0;
+      animation: fadeIn 1s forwards ease-in-out;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* ===== Minimal modal styling (no Bootstrap CSS required) ===== */
+    .cm-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 9999;
+    }
+    .cm-modal.is-open { display: block; }
+
+    .cm-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+    }
+
+    .cm-modal__card {
+      position: relative;
+      max-width: 560px;
+      margin: 12vh auto 0;
+      background: radial-gradient(1200px 500px at 20% 0%, rgba(255,255,255,.08), transparent 60%), #0b0f14;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.55);
+      padding: 18px;
+      text-align: left;
+    }
+
+    .cm-modal__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .cm-modal__title { font-weight: 800; font-size: 1.05rem; }
+    .cm-modal__subtitle { color: rgba(255,255,255,.7); font-size: .95rem; margin-top: 2px; }
+
+    .cm-modal__close {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: #fff;
+      font-size: 22px;
+      line-height: 30px;
+      cursor: pointer;
+    }
+
+    .cm-modal__form { display: flex; flex-direction: column; gap: 10px; }
+    .cm-modal__label { color: rgba(255,255,255,.75); font-size: .9rem; }
+
+    .cm-modal input {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: #fff;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .cm-modal input:focus { border-color: rgba(255,255,255,.28); }
+    .cm-modal input.is-invalid { border-color: rgba(255,80,80,.85); }
+
+    .cm-modal__msg {
+      min-height: 18px;
+      font-size: .9rem;
+      color: rgba(255,255,255,.75);
+    }
+    .cm-modal__msg.error { color: rgba(255,120,120,.95); }
+    .cm-modal__msg.ok { color: rgba(140,255,180,.95); }
+
+    .cm-modal__submit {
+      margin-top: 6px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 0;
+      font-weight: 800;
+      background: #fff;
+      color: #000;
+      cursor: pointer;
+    }
+    .cm-modal__submit:disabled { opacity: .65; cursor: not-allowed; }
+
+    /* Mobile tweaks */
+    @media (max-width: 480px) {
+      img.logo { width: 250px; }
+      p { font-size: 1rem; max-width: 90vw; }
+      html, body { max-width: 500px; }
+      .cm-modal__card { margin: 10vh 12px 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <img src="ChaosMonkey_01@2x.png" alt="ChaosMonkey Logo" class="logo" />
+  <p>The world’s first holistic telemetry tracking tool for engineering leaders, by engineering leaders.</p>
+  <em>Currently operating in stealth mode. Stay tuned.</em>
+
+  <!-- CTA (no Bootstrap modal attributes; opens custom modal) -->
+  <a href="#" id="requestAccessBtn" class="cta"
+     style="display:inline-block; padding:0.75rem 1.5rem; border-radius:999px; background:#000; color:#fff; font-weight:600; text-decoration:none; margin-top:1.5rem; transition:0.15s;"
+     onmouseover="this.style.background='#111'" onmouseout="this.style.background='#000'">
+    Request Private Access
+  </a>
+
+  <footer>&copy; 2026 ChaosMonkey</footer>
+
+  <!-- Custom modal (matches your clean aesthetic; no Bootstrap required) -->
+  <div id="cmModal" class="cm-modal" aria-hidden="true">
+    <div class="cm-modal__backdrop" data-cm-close></div>
+
+    <div class="cm-modal__card" role="dialog" aria-modal="true" aria-labelledby="cmModalTitle">
+      <div class="cm-modal__header">
+        <div>
+          <div id="cmModalTitle" class="cm-modal__title">Request early access</div>
+          <div class="cm-modal__subtitle">Get the private demo link + early access updates.</div>
+        </div>
+        <button type="button" class="cm-modal__close" aria-label="Close" data-cm-close>×</button>
+      </div>
+
+      <form id="cmEarlyAccessForm" class="cm-modal__form" novalidate>
+        <label class="cm-modal__label" for="cmEmail">Work email</label>
+        <input id="cmEmail" name="email" type="email" autocomplete="email" placeholder="you@company.com" required />
+
+        <div id="cmInlineMsg" class="cm-modal__msg" aria-live="polite"></div>
+
+        <button id="cmSubmit" type="submit" class="cm-modal__submit">Request access</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+(() => {
+  const ENDPOINT = "https://gacqawc6hol2is7vd2se7e4bci0wbnfr.lambda-url.us-east-2.on.aws/";
+
+  const modal = document.getElementById("cmModal");
+  const openBtn = document.getElementById("requestAccessBtn");
+  const form = document.getElementById("cmEarlyAccessForm");
+  const emailEl = document.getElementById("cmEmail");
+  const msg = document.getElementById("cmInlineMsg");
+  const submitBtn = document.getElementById("cmSubmit");
+
+  if (!modal || !openBtn || !form || !emailEl || !msg || !submitBtn) return;
+
+  function setMsg(text, kind) {
+    msg.textContent = text || "";
+    msg.className = "cm-modal__msg" + (kind ? (" " + kind) : "");
+  }
+
+  function openModal() {
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    setMsg("", "");
+    emailEl.classList.remove("is-invalid");
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Request access";
+    setTimeout(() => emailEl.focus(), 0);
+  }
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+  }
+
+  openBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    openModal();
+  });
+
+  modal.addEventListener("click", (e) => {
+    if (e.target && e.target.dataset && ("cmClose" in e.target.dataset)) closeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = (emailEl.value || "").trim();
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    emailEl.classList.toggle("is-invalid", !ok);
+    if (!ok) {
+      setMsg("Please enter a valid email (example: you@company.com).", "error");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+    setMsg("", "");
+
+    // IMPORTANT: if CORS blocks the response, fetch throws even though Lambda may still run.
+    // So we:
+    // 1) try normal fetch (so it works once CORS is correct)
+    // 2) if it throws, fall back to no-cors and treat as success (fire-and-forget MVP)
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        body: JSON.stringify({ email })
+      });
+
+      // If we can read the response, great:
+      const bodyText = await res.text().catch(() => "");
+
+      if (res.status === 200) {
+        setMsg("✅ Requested. We’ll be in touch.", "ok");
+        emailEl.value = "";
+        emailEl.classList.remove("is-invalid");
+        setTimeout(closeModal, 700);
+      } else {
+        setMsg(`⚠️ Submit failed (${res.status}). ${bodyText}`.trim(), "error");
+      }
+    } catch (err) {
+      console.warn("Fetch blocked (likely CORS). Falling back to no-cors.", err);
+
+      try {
+        // Fire-and-forget: request still goes out, but browser won't let us read status.
+        await fetch(ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify({ email })
+        });
+
+        // Treat as success (you already confirmed S3 writes are happening)
+        setMsg("✅ Requested. We’ll be in touch.", "ok");
+        emailEl.value = "";
+        emailEl.classList.remove("is-invalid");
+        setTimeout(closeModal, 1400);
+      } catch (err2) {
+        console.error("no-cors fallback also failed", err2);
+        setMsg("⚠️ Network error. Please try again.", "error");
+      }
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Request access";
+    }
+  });
+})();
+</script>
+
+
