@@ -885,10 +885,15 @@
         // 1) try normal fetch (so it works once CORS is correct)
         // 2) if it throws, fall back to no-cors and treat as success (fire-and-forget MVP)
         try {
+        
+
           const res = await fetch(ENDPOINT, {
-            method: "POST",
-            body: JSON.stringify({ email })
-          });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ email })
+});
 
           const bodyText = await res.text().catch(() => "");
 
