@@ -841,6 +841,74 @@
       });
     });
 
+
+    <script>
+  // ================================
+  // Early Access form -> AWS Lambda URL
+  // ================================
+  (function () {
+    const ENDPOINT = "https://gacqawc6hol2is7vd2se7e4bci0wbnfr.lambda-url.us-east-2.on.aws/";
+
+    const form = document.getElementById("earlyAccessForm");
+    const emailEl = document.getElementById("workEmail");
+    const submitBtn = document.getElementById("earlyAccessSubmit");
+    const statusEl = document.getElementById("ctaStatus");
+
+    if (!form || !emailEl || !submitBtn || !statusEl) return;
+
+    function setStatus(text, kind) {
+      statusEl.textContent = text || "";
+      statusEl.className = "cta-status reveal is-visible" + (kind ? (" " + kind) : "");
+    }
+
+    function isValidEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || "").trim());
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = (emailEl.value || "").trim();
+
+      if (!isValidEmail(email)) {
+        setStatus("Please enter a valid email (example: you@company.com).", "error");
+        emailEl.focus();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting…";
+      setStatus("");
+
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email })
+        });
+
+        const bodyText = await res.text().catch(() => "");
+
+        if (res.status === 200) {
+          setStatus("✅ Requested. We’ll be in touch.", "success");
+          emailEl.value = "";
+        } else {
+          setStatus(`⚠️ Submit failed (${res.status}). ${bodyText}`.trim(), "error");
+        }
+
+      } catch (err) {
+        console.error("Network error:", err);
+        setStatus("⚠️ Network error. Please try again.", "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Get access";
+      }
+    });
+  })();
+  </script>
+  <!--
     // ================================
     // Early Access form -> AWS Lambda URL
     // (matches your current LP behavior)
@@ -927,6 +995,7 @@
       });
     })();
   </script>
+  -->
 </body>
 </html>
 
