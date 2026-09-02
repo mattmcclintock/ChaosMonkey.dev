@@ -227,7 +227,7 @@
           <p>This policy covers:</p>
           <ul>
             <li>the public website at chaosmonkey.dev;</li>
-            <li>the ChaosMonkey IDE extension (supported in VS Code 1.85+, Cursor 1.0+, and Windsurf 1.0+);</li>
+            <li>the ChaosMonkey IDE extension;</li>
             <li>the ChaosMonkey Claude Code terminal bridge;</li>
             <li>the customer ChaosMonkey API and leadership dashboard.</li>
           </ul>
@@ -246,14 +246,14 @@
           <ul>
             <li><strong>Website technical and analytics information</strong> — described in Section 5.</li>
             <li><strong>Voluntarily submitted contact information</strong> — work email from the Early Access form (Section 6).</li>
-            <li><strong>Customer account information</strong> — provided by customer administrators (Section 12).</li>
+            <li><strong>Customer account information</strong> — provided by customer administrators.</li>
             <li><strong>Engineering telemetry</strong> — pseudonymous activity metadata from the IDE extension and Claude Code bridge (Sections 7–8).</li>
             <li><strong>Repository and workflow metadata</strong> — sanitized Git context and delivery/workflow counts (Section 10).</li>
             <li><strong>Integration data</strong> — from optional, admin-initiated integrations such as GitHub (Section 11).</li>
           </ul>
 
           <h2 id="website">5. Website visitors and analytics</h2>
-          <p>The chaosmonkey.dev public marketing website uses <strong>Google Analytics</strong> to understand aggregate website usage. Google Analytics is a third-party service provided by Google. On pages where Google Analytics is enabled, Google may use cookies or similar technologies (such as identifiers set in your browser) to collect information about how those pages are used, such as pages viewed, approximate region, device/browser characteristics, and referral source. The information collected by Google Analytics is aggregated and is used to improve the website. Not every page on the site necessarily loads Google Analytics.</p>
+          <p>The chaosmonkey.dev public marketing website uses <strong>Google Analytics</strong> to understand aggregate website usage. Google Analytics is a third-party service provided by Google. On pages where Google Analytics is enabled, Google may use cookies or similar technologies (such as identifiers set in your browser) to collect information about how those pages are used, such as pages viewed, approximate region, device/browser characteristics, and referral source. Not every page on the site necessarily loads Google Analytics.</p>
           <p>You can manage cookies and similar technologies through your browser settings, and Google offers browser add-ons and opt-out mechanisms for Google Analytics. ChaosMonkey does not configure Google Analytics with a user ID or intentionally use Google Analytics to identify individual website visitors.</p>
           <p>The website also loads third-party resources from content delivery networks and font providers, including Bootstrap (CSS and icons) and Google Fonts. Loading these resources causes your browser to make requests to those providers, which may independently log standard request information as part of their services.</p>
 
@@ -269,8 +269,8 @@
             <thead><tr><th>Data category</th><th>Collected?</th><th>Notes</th></tr></thead>
             <tbody>
               <tr><td>Editor / tool identity and version</td><td class="yes">Yes</td><td>Editor type (VS Code, Cursor, Windsurf, Claude Code), editor version, extension version, URI scheme.</td></tr>
-              <tr><td>Installation identifier</td><td class="yes">Yes</td><td>Random per-installation UUID; not a human identifier.</td></tr>
-              <tr><td>Developer identifier</td><td class="yes">Yes</td><td>Backend-issued pseudonymous identifier; not a human identifier.</td></tr>
+              <tr><td>Installation identifier</td><td class="yes">Yes</td><td>Random per-installation UUID; does not contain the developer's name or email address.</td></tr>
+              <tr><td>Developer identifier</td><td class="yes">Yes</td><td>Backend-issued pseudonymous identifier; does not contain the developer's name or email address.</td></tr>
               <tr><td>Session / activity durations</td><td class="yes">Yes</td><td>Session length, active coding time, idle gaps.</td></tr>
               <tr><td>Edit counts</td><td class="yes">Yes</td><td>Files-edited count and estimated characters/lines added and removed (range-based deltas).</td></tr>
               <tr><td>AI activity counts / durations</td><td class="yes">Yes</td><td>AI burst count, burst character/line totals, active span, derived intensity metrics.</td></tr>
@@ -312,7 +312,7 @@
           <p>Transport is HTTPS only (HTTP is permitted only for exact local development hosts such as <code>localhost</code>, <code>127.0.0.1</code>, or <code>::1</code>, with substring spoofing rejected). Authentication uses a bearer credential obtained through an enrollment-code exchange. Telemetry failure never blocks Claude Code; hook invocations always exit successfully.</p>
 
           <h2 id="identifiers">9. Pseudonymous identifiers</h2>
-          <p>The extension and bridge use a random per-installation UUID and a backend-issued pseudonymous developer identifier. These are not human identifiers. The extension and bridge do not collect developer names, email addresses, or Git author identities.</p>
+          <p>The extension and bridge use a random per-installation UUID and a backend-issued pseudonymous developer identifier. These identifiers do not contain the developer's name or email address. The extension and bridge do not collect developer names, email addresses, or Git author identities.</p>
 
           <h2 id="repo-metadata">10. Repository and Git metadata</h2>
           <p>Repository remote URLs are sanitized before any telemetry emission. Embedded HTTP/HTTPS userinfo (username and password or token) is stripped before the URL leaves the developer machine; the host, path, and query string are preserved so repository correlation is unaffected. SSH-form remotes (e.g., <code>git@github.com:org/repo.git</code>) contain no embedded credentials and are passed through unchanged. We collect branch names and commit SHAs, but not commit messages, file names, or file paths.</p>
