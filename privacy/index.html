@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Analytics is intentionally NOT loaded on legal pages.
+       The Privacy Policy still discloses that the public marketing website uses GA. -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — ChaosMonkey</title>
+  <meta name="description" content="ChaosMonkey Privacy Policy: what we collect and what we do not collect from the website, IDE extension, and Claude Code terminal bridge." />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+  <!-- Product header font -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg0:#050506;
+      --bg1:#0a0a0d;
+      --panel:#11131a;
+      --panel2:#151824;
+      --text:#ffffff;
+      --text2:rgba(255,255,255,.78);
+      --muted:rgba(255,255,255,.56);
+      --accent:#00ff88;
+      --danger:#ff6a6a;
+      --warn:#ffc857;
+      --blue:#5f8cff;
+      --border:rgba(255,255,255,.12);
+      --border2:rgba(255,255,255,.18);
+      --haloBlue: rgba(47,124,255,.20);
+      --haloGreen: rgba(0,255,136,.10);
+      --haloPurple: rgba(120,80,255,.10);
+      --shadow: 0 0 0 1px rgba(255,255,255,.06), 0 20px 70px rgba(0,0,0,.62);
+      --shadowSoft: 0 0 0 1px rgba(255,255,255,.05), 0 14px 34px rgba(0,0,0,.50);
+      --radius:20px;
+      --radiusSm:14px;
+      --max:1180px;
+    }
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      line-height:1.7;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background:
+        radial-gradient(1100px 700px at 50% -20%, var(--haloBlue), transparent 60%),
+        radial-gradient(900px 520px at 82% 0%, var(--haloGreen), transparent 55%),
+        radial-gradient(900px 520px at 12% 12%, var(--haloPurple), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+    }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    .container-fluid{ max-width:var(--max); margin:0 auto; padding:0 22px; }
+
+    /* Header — matches homepage */
+    .dashboard-header{
+      background:rgba(0,0,0,.88);
+      border-bottom:1px solid var(--border);
+      position:sticky; top:0; z-index:1000;
+      backdrop-filter:blur(14px);
+    }
+    .header-inner{ min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:8px 0; }
+    .brand-lockup{ display:flex; align-items:center; gap:14px; min-width:0; text-decoration:none; }
+    .brand-lockup:hover{ text-decoration:none; }
+    .dashboard-logo{ width:58px; height:58px; border-radius:10px; object-fit:cover; box-shadow:0 0 0 1px rgba(255,255,255,.12), 0 10px 24px rgba(0,0,0,.55); flex:0 0 auto; }
+    .dashboard-title{
+      font-family:"Bebas Neue",system-ui,sans-serif;
+      font-size:2.15rem; letter-spacing:.09em; line-height:1; margin:0;
+      color:rgba(255,255,255,.96); text-transform:uppercase;
+      text-shadow:0 0 18px rgba(47,124,255,.22), 0 0 28px rgba(0,255,136,.10);
+    }
+    .nav-actions{ display:flex; align-items:center; justify-content:flex-end; gap:10px; flex-wrap:wrap; }
+    .nav-action{
+      display:inline-flex; align-items:center; justify-content:center;
+      height:38px; padding:0 14px; border-radius:999px;
+      border:1px solid var(--border2); background:rgba(255,255,255,.035);
+      color:rgba(255,255,255,.86); text-decoration:none; box-shadow:var(--shadowSoft);
+      gap:8px; font-weight:800; font-size:.92rem; letter-spacing:-.01em; white-space:nowrap;
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .nav-action:hover{ transform:translateY(-1px); background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.25); color:#fff; text-decoration:none; }
+    .nav-action.primary{ border-color:rgba(0,255,136,.30); background:rgba(0,255,136,.11); color:#fff; }
+
+    /* Legal layout — calmer, constrained */
+    .legal-hero{ padding:3.5rem 0 1.25rem; }
+    .legal-hero .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      color:rgba(255,255,255,.68); font-weight:900; letter-spacing:.14em;
+      text-transform:uppercase; font-size:.75rem; margin-bottom:.9rem;
+    }
+    .legal-hero .kicker .dot{ width:7px; height:7px; border-radius:999px; background:var(--accent); box-shadow:0 0 18px rgba(0,255,136,.45); }
+    .legal-hero h1{ font-size:clamp(2.2rem,4vw,3.4rem); font-weight:900; letter-spacing:-.045em; line-height:1; margin:0 0 .5rem; color:#fff; }
+    .legal-hero .effective{ color:var(--muted); font-size:.95rem; margin:0; }
+
+    .legal-body{ padding:0 0 3.5rem; }
+    .legal-panel{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+      box-shadow:var(--shadowSoft);
+      padding:30px 34px;
+    }
+    .toc{
+      border:1px solid var(--border); border-radius:var(--radiusSm);
+      background:rgba(255,255,255,.025); padding:18px 22px; margin-bottom:26px;
+    }
+    .toc h2{ font-size:.95rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.72); margin:0 0 10px; }
+    .toc ol{ margin:0; padding-left:18px; columns:2; column-gap:28px; }
+    .toc li{ margin-bottom:5px; color:var(--text2); break-inside:avoid; }
+    .toc a{ color:var(--text2); }
+    .toc a:hover{ color:var(--accent); }
+
+    .legal-panel h2{
+      font-size:1.3rem; font-weight:900; letter-spacing:-.02em; color:#fff;
+      margin:2.1rem 0 .65rem; padding-top:.6rem; border-top:1px solid var(--border);
+    }
+    .legal-panel h2:first-child{ border-top:none; margin-top:0; padding-top:0; }
+    .legal-panel h3{ font-size:1.05rem; font-weight:800; color:#fff; margin:1.3rem 0 .4rem; }
+    .legal-panel p{ color:var(--text2); margin:0 0 .8rem; }
+    .legal-panel ul, .legal-panel ol{ padding-left:20px; margin:0 0 1rem; }
+    .legal-panel li{ color:var(--text2); margin-bottom:.4rem; }
+    .legal-panel strong{ color:#fff; }
+    .legal-panel code{ color:var(--accent); background:rgba(0,255,136,.08); padding:1px 5px; border-radius:5px; font-size:.9em; }
+
+    .callout{
+      border:1px solid var(--border); border-left:3px solid var(--accent);
+      border-radius:12px; background:rgba(255,255,255,.03);
+      padding:14px 18px; margin:1.1rem 0;
+    }
+    .callout p{ margin:0 0 .35rem; }
+    .callout p:last-child{ margin-bottom:0; }
+
+    table.data{ width:100%; border-collapse:collapse; margin:1rem 0; font-size:.93rem; }
+    table.data th, table.data td{ border:1px solid var(--border); padding:9px 11px; text-align:left; vertical-align:top; }
+    table.data th{ background:rgba(255,255,255,.04); color:#fff; font-weight:800; }
+    table.data td{ color:var(--text2); }
+    table.data td.yes{ color:var(--accent); font-weight:700; }
+    table.data td.no{ color:var(--muted); }
+
+    footer{ padding:3rem 0; border-top:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.02); text-align:center; }
+    footer a{ color:rgba(255,255,255,.58); text-decoration:none; }
+    footer a:hover{ color:rgba(255,255,255,.78); text-decoration:none; }
+    .text-muted{ color:var(--muted) !important; }
+
+    @media (max-width: 768px){
+      .container-fluid{ padding:0 16px; }
+      .header-inner{ align-items:flex-start; flex-direction:column; padding:12px 0; }
+      .dashboard-logo{ width:46px; height:46px; }
+      .dashboard-title{ font-size:1.8rem; }
+      .nav-actions{ width:100%; justify-content:flex-start; }
+      .nav-action{ height:36px; font-size:.88rem; padding:0 12px; }
+      .legal-panel{ padding:22px 18px; }
+      .toc ol{ columns:1; }
+      .legal-hero{ padding:2.5rem 0 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header — matches homepage -->
+  <header class="dashboard-header">
+    <div class="container-fluid">
+      <div class="header-inner">
+        <a class="brand-lockup" href="/" aria-label="ChaosMonkey home">
+          <img src="/CM-icon.png" alt="ChaosMonkey.dev Logo" class="dashboard-logo" />
+          <h1 class="dashboard-title">CHAOSMONKEY</h1>
+        </a>
+        <nav class="nav-actions" aria-label="Primary navigation">
+          <a class="nav-action" href="/#demo"><i class="bi bi-play-circle"></i> Demo</a>
+          <a class="nav-action" href="/#how-it-works"><i class="bi bi-diagram-3"></i> How it works</a>
+          <a class="nav-action primary" href="/#early-access"><i class="bi bi-lightning-charge"></i> Early access</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="legal-hero">
+      <div class="container-fluid">
+        <div class="kicker"><span class="dot"></span> Legal</div>
+        <h1>Privacy Policy</h1>
+        <p class="effective">Effective date: September 1, 2026</p>
+      </div>
+    </section>
+
+    <section class="legal-body">
+      <div class="container-fluid">
+        <div class="legal-panel">
+
+          <nav class="toc" aria-label="Contents">
+            <h2>Contents</h2>
+            <ol>
+              <li><a href="#operator">Operator and contact</a></li>
+              <li><a href="#scope">Scope of this policy</a></li>
+              <li><a href="#audiences">Who this policy covers</a></li>
+              <li><a href="#categories">Categories of information</a></li>
+              <li><a href="#website">Website visitors and analytics</a></li>
+              <li><a href="#early-access">Early Access form submissions</a></li>
+              <li><a href="#telemetry">Engineering telemetry</a></li>
+              <li><a href="#bridge">Claude Code terminal bridge</a></li>
+              <li><a href="#identifiers">Pseudonymous identifiers</a></li>
+              <li><a href="#repo-metadata">Repository and Git metadata</a></li>
+              <li><a href="#github">Optional GitHub and delivery integrations</a></li>
+              <li><a href="#use">How information is used</a></li>
+              <li><a href="#isolation">Customer isolation</a></li>
+              <li><a href="#providers">Service providers and infrastructure</a></li>
+              <li><a href="#security">Security</a></li>
+              <li><a href="#retention">Retention</a></li>
+              <li><a href="#choices">Your choices and privacy rights</a></li>
+              <li><a href="#children">Children</a></li>
+              <li><a href="#changes">Changes to this policy</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ol>
+          </nav>
+
+          <h2 id="operator">1. Operator and contact</h2>
+          <p>ChaosMonkey is operated by <strong>Matthieu R McClintock d/b/a ChaosMonkey</strong> ("ChaosMonkey," "we," "us," or "our"). This Privacy Policy describes how we handle information in connection with the ChaosMonkey platform and the public website at <a href="https://chaosmonkey.dev">chaosmonkey.dev</a>. You can contact us at <a href="mailto:support@chaosmonkey.dev">support@chaosmonkey.dev</a>.</p>
+
+          <h2 id="scope">2. Scope of this policy</h2>
+          <p>This policy covers:</p>
+          <ul>
+            <li>the public website at chaosmonkey.dev;</li>
+            <li>the ChaosMonkey IDE extension (supported in VS Code 1.85+, Cursor 1.0+, and Windsurf 1.0+);</li>
+            <li>the ChaosMonkey Claude Code terminal bridge;</li>
+            <li>the customer ChaosMonkey API and leadership dashboard.</li>
+          </ul>
+          <p>When a customer organization deploys ChaosMonkey for its developers, that customer controls its developers' telemetry, and ChaosMonkey processes that data to operate the Service. This policy describes the platform's data practices so customers, administrators, and developers can understand what is and is not collected.</p>
+
+          <h2 id="audiences">3. Who this policy covers</h2>
+          <ul>
+            <li><strong>Website visitors</strong> — people who browse chaosmonkey.dev.</li>
+            <li><strong>Prospective customers</strong> — people who submit the Early Access form.</li>
+            <li><strong>Customer administrators</strong> — dashboard users who manage enrollments, credentials, and integrations.</li>
+            <li><strong>Engineering telemetry participants</strong> — developers whose IDE extension or Claude Code bridge submits activity metadata.</li>
+          </ul>
+
+          <h2 id="categories">4. Categories of information</h2>
+          <p>The categories of information we may process are:</p>
+          <ul>
+            <li><strong>Website technical and analytics information</strong> — described in Section 5.</li>
+            <li><strong>Voluntarily submitted contact information</strong> — work email from the Early Access form (Section 6).</li>
+            <li><strong>Customer account information</strong> — provided by customer administrators (Section 12).</li>
+            <li><strong>Engineering telemetry</strong> — pseudonymous activity metadata from the IDE extension and Claude Code bridge (Sections 7–8).</li>
+            <li><strong>Repository and workflow metadata</strong> — sanitized Git context and delivery/workflow counts (Section 10).</li>
+            <li><strong>Integration data</strong> — from optional, admin-initiated integrations such as GitHub (Section 11).</li>
+          </ul>
+
+          <h2 id="website">5. Website visitors and analytics</h2>
+          <p>The chaosmonkey.dev public marketing website uses <strong>Google Analytics</strong> to understand aggregate website usage. Google Analytics is a third-party service provided by Google. On pages where Google Analytics is enabled, Google may use cookies or similar technologies (such as identifiers set in your browser) to collect information about how those pages are used, such as pages viewed, approximate region, device/browser characteristics, and referral source. The information collected by Google Analytics is aggregated and is used to improve the website. Not every page on the site necessarily loads Google Analytics.</p>
+          <p>You can manage cookies and similar technologies through your browser settings, and Google offers browser add-ons and opt-out mechanisms for Google Analytics. ChaosMonkey does not configure Google Analytics with a user ID or intentionally use Google Analytics to identify individual website visitors.</p>
+          <p>The website also loads third-party resources from content delivery networks and font providers, including Bootstrap (CSS and icons) and Google Fonts. Loading these resources causes your browser to make requests to those providers, which may independently log standard request information as part of their services.</p>
+
+          <h2 id="early-access">6. Early Access form submissions</h2>
+          <p>The website's Early Access form asks for a <strong>work email address</strong>. When you submit the form, your work email is sent to an AWS-hosted endpoint for processing. We use the submitted work email to respond to your request and for reasonable follow-up regarding ChaosMonkey. Submitting the form is voluntary; if you do not want to share your work email, do not submit the form.</p>
+          <p>Standard technical information may also be associated with the submission, such as information your browser sends with the request and information available to the hosting infrastructure. We do not sell the work email addresses submitted through this form.</p>
+
+          <h2 id="telemetry">7. Engineering telemetry</h2>
+          <p>The ChaosMonkey IDE extension and Claude Code terminal bridge collect pseudonymous activity metadata and transmit it over outbound HTTPS/TLS to the customer's ChaosMonkey API. ChaosMonkey measures <strong>patterns of activity, not the content of work</strong>. We do not persist or transmit source-code content, file contents, code diffs, AI prompts or completions, keystroke text, terminal command text or output, file names, file paths, workspace folder names, or commit messages as product telemetry.</p>
+
+          <h3>What is collected</h3>
+          <table class="data">
+            <thead><tr><th>Data category</th><th>Collected?</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Editor / tool identity and version</td><td class="yes">Yes</td><td>Editor type (VS Code, Cursor, Windsurf, Claude Code), editor version, extension version, URI scheme.</td></tr>
+              <tr><td>Installation identifier</td><td class="yes">Yes</td><td>Random per-installation UUID; not a human identifier.</td></tr>
+              <tr><td>Developer identifier</td><td class="yes">Yes</td><td>Backend-issued pseudonymous identifier; not a human identifier.</td></tr>
+              <tr><td>Session / activity durations</td><td class="yes">Yes</td><td>Session length, active coding time, idle gaps.</td></tr>
+              <tr><td>Edit counts</td><td class="yes">Yes</td><td>Files-edited count and estimated characters/lines added and removed (range-based deltas).</td></tr>
+              <tr><td>AI activity counts / durations</td><td class="yes">Yes</td><td>AI burst count, burst character/line totals, active span, derived intensity metrics.</td></tr>
+              <tr><td>Language IDs</td><td class="yes">Yes</td><td>IDE language IDs (e.g., <code>typescript</code>, <code>python</code>). Not file names or paths.</td></tr>
+              <tr><td>Save / debug / terminal activity</td><td class="yes">Yes</td><td>Counts and durations only.</td></tr>
+              <tr><td>Normalized workspace context</td><td class="yes">Yes</td><td>Remote flag, normalized remote type (small fixed set), workspace folder count.</td></tr>
+              <tr><td>Repository remote URL (sanitized)</td><td class="yes">Yes</td><td>Embedded HTTP/HTTPS credentials are stripped before transmission. SSH-style remotes are passed through unchanged.</td></tr>
+              <tr><td>Git branch name</td><td class="yes">Yes</td><td>Current branch.</td></tr>
+              <tr><td>Commit SHA</td><td class="yes">Yes</td><td>Full commit hash. No commit message.</td></tr>
+              <tr><td>Delivery / workflow counts</td><td class="yes">Yes</td><td>Session commit count, time-to-first-commit, related outcome counts.</td></tr>
+            </tbody>
+          </table>
+
+          <h3>What is not persisted or transmitted as product telemetry</h3>
+          <table class="data">
+            <thead><tr><th>Data category</th><th>Persisted or transmitted as product telemetry?</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Source code or file contents</td><td class="no">No</td><td>Not persisted or transmitted as telemetry. The Claude Code bridge may transiently process hook-supplied edit text in-process to derive aggregate metrics, as described in Section 8; that raw text is not persisted or transmitted.</td></tr>
+              <tr><td>Code diffs</td><td class="no">No</td><td>Only range-based line/character deltas as counts.</td></tr>
+              <tr><td>AI prompts or completions</td><td class="no">No</td><td>Not persisted or transmitted.</td></tr>
+              <tr><td>Keystroke text</td><td class="no">No</td><td>Keystrokes are aggregated to counts.</td></tr>
+              <tr><td>Terminal commands or output</td><td class="no">No</td><td>Terminal activity is counts/durations only. The Claude Code bridge does not inspect, persist, or transmit terminal command text or output, as described in Section 8.</td></tr>
+              <tr><td>File names or file paths</td><td class="no">No</td><td>No. The Claude Code bridge may transiently process a hook-supplied file path locally as described in Section 8; it is not persisted or transmitted as telemetry.</td></tr>
+              <tr><td>Workspace folder names</td><td class="no">No</td><td>Only folder count and normalized remote type.</td></tr>
+              <tr><td>Commit messages</td><td class="no">No</td><td>Only commit SHA, branch, and sanitized repo URL.</td></tr>
+              <tr><td>Developer name, email, or Git author identity</td><td class="no">No</td><td>Not collected by the extension or bridge; developer identity is pseudonymous.</td></tr>
+            </tbody>
+          </table>
+
+          <p>The API validates event types against an allow-list and rejects any event type not on the list. Each event carries a timestamp, a count or duration where applicable, and a metadata object limited in size. Telemetry is associated server-side with the customer's organization at ingestion time; the credential presented by the extension or bridge authoritatively determines the organization, and client-supplied organization fields do not override the credential-bound organization.</p>
+
+          <h2 id="bridge">8. Claude Code terminal bridge</h2>
+          <p>The Claude Code terminal bridge receives hook inputs from Claude Code and derives aggregate telemetry from those inputs. The bridge handles raw inputs transiently in-process, but those raw values are not persisted, transmitted, or logged as telemetry:</p>
+          <div class="callout">
+            <p>Raw file paths and edit text (such as <code>old_string</code>, <code>new_string</code>, <code>content</code>, and <code>new_source</code>) supplied by hooks are <strong>transiently processed in-process</strong> solely to derive aggregate metrics (language ID from the file extension, and character/line change counts). They are <strong>not transmitted, not written to local state, and not written to logs</strong>. They are discarded after the hook invocation returns.</p>
+            <p>The working directory supplied by hook input is <strong>transiently used locally</strong> to execute Git commands (remote URL, branch, commit count). It is <strong>not transmitted, not persisted, and not logged</strong>.</p>
+            <p>Terminal command text and output are present in the Bash hook payload, but the bridge <strong>does not inspect, persist, or transmit them</strong>. Only a count of Bash invocations is tracked.</p>
+          </div>
+          <p>Transport is HTTPS only (HTTP is permitted only for exact local development hosts such as <code>localhost</code>, <code>127.0.0.1</code>, or <code>::1</code>, with substring spoofing rejected). Authentication uses a bearer credential obtained through an enrollment-code exchange. Telemetry failure never blocks Claude Code; hook invocations always exit successfully.</p>
+
+          <h2 id="identifiers">9. Pseudonymous identifiers</h2>
+          <p>The extension and bridge use a random per-installation UUID and a backend-issued pseudonymous developer identifier. These are not human identifiers. The extension and bridge do not collect developer names, email addresses, or Git author identities.</p>
+
+          <h2 id="repo-metadata">10. Repository and Git metadata</h2>
+          <p>Repository remote URLs are sanitized before any telemetry emission. Embedded HTTP/HTTPS userinfo (username and password or token) is stripped before the URL leaves the developer machine; the host, path, and query string are preserved so repository correlation is unaffected. SSH-form remotes (e.g., <code>git@github.com:org/repo.git</code>) contain no embedded credentials and are passed through unchanged. We collect branch names and commit SHAs, but not commit messages, file names, or file paths.</p>
+
+          <h2 id="github">11. Optional GitHub and delivery integrations</h2>
+          <p>GitHub and other delivery-system integrations are <strong>optional</strong> and separate from the developer extension and bridge:</p>
+          <ul>
+            <li>They are <strong>not required</strong> for extension or bridge operation; telemetry collection and dashboard insights work without any delivery integration.</li>
+            <li>They are <strong>admin/leadership-initiated</strong> and configured by a dashboard administrator, not by developers, and are not part of the developer onboarding flow.</li>
+            <li>When connected, they enable correlation of developer activity with pull requests, reviews, and delivery outcomes.</li>
+            <li>They are <strong>not enabled by default</strong>. Any external integration permissions and scopes can be reviewed separately with the customer's security team before enablement.</li>
+          </ul>
+
+          <h2 id="use">12. How information is used</h2>
+          <ul>
+            <li>To operate the ChaosMonkey platform and present performance, AI-usage, and delivery insights to authorized leadership and engineering-management users.</li>
+            <li>To correlate developer activity with workflow and delivery outcomes, including through optional integrations.</li>
+            <li>To authenticate extensions and bridge installations and protect the platform's integrity (validation, duplicate detection, installation binding).</li>
+            <li>To respond to Early Access and contact requests and provide reasonable follow-up regarding ChaosMonkey.</li>
+            <li>To understand aggregate website usage through Google Analytics and improve the website.</li>
+            <li>To operate, maintain, secure, and provide the Service.</li>
+          </ul>
+          <p>We do <strong>not</strong> sell personal information, and we do not share telemetry across customer organizations.</p>
+
+          <h2 id="isolation">13. Customer isolation</h2>
+          <p>Each customer receives a dedicated environment with its own application, API, database, and configuration. Telemetry is scoped to the customer's organization at ingestion. Telemetry for one customer's developers is stored in that customer's environment and is not accessible to or shared with other customers. No cross-customer telemetry sharing occurs.</p>
+
+          <h2 id="providers">14. Service providers and infrastructure</h2>
+          <ul>
+            <li><strong>Hosting infrastructure.</strong> Customer environments are hosted on AWS cloud infrastructure. The Early Access form is also processed through an AWS-hosted endpoint.</li>
+            <li><strong>Website analytics.</strong> Google Analytics is used on the public website, as described in Section 5.</li>
+            <li><strong>Website resources.</strong> The website loads Bootstrap (CSS/icons) and Google Fonts from their providers' content delivery networks, which may log standard request information.</li>
+            <li><strong>Optional integrations.</strong> When a customer enables an integration such as GitHub, relevant data is exchanged with that provider as described in Section 11.</li>
+            <li><strong>No cross-customer sharing; no sale of data.</strong></li>
+          </ul>
+          <p>We do not represent that the above is an exhaustive list of every subprocessor for every possible deployment; additional service providers used for infrastructure may be reviewed with the customer.</p>
+
+          <h2 id="security">15. Security</h2>
+          <p>Security practices we apply include: HTTPS/TLS for telemetry transport; authentication of extension and bridge credentials; installation binding so that telemetry submitted with a mismatched installation identifier is rejected; telemetry-only privilege boundaries for extension credentials (they cannot access dashboard or administrative endpoints); input validation and event-type allow-listing; payload size limits; batch hashing to detect duplicate processing; repository URL sanitization that strips embedded credentials before transmission; and error handling designed not to expose sensitive data. We do not assert any specific security certification, standard, or attestation in this policy.</p>
+
+          <h2 id="retention">16. Retention</h2>
+          <p>ChaosMonkey does not apply a single fixed retention period to all deployments. Retention of telemetry and customer data may be governed by customer-specific requirements or agreements and can be configured during deployment. Customer-specific data retention or removal requirements can be reviewed and incorporated into the customer environment as required. We do not represent a guaranteed deletion or retention SLA in this policy.</p>
+
+          <h2 id="choices">17. Your choices and privacy rights</h2>
+          <ul>
+            <li><strong>Website analytics.</strong> You can manage cookies and similar technologies through your browser settings, and Google offers opt-out mechanisms for Google Analytics.</li>
+            <li><strong>Early Access form.</strong> Submitting your work email is voluntary. You can request that we stop using your submitted email for further communications by contacting us at <a href="mailto:support@chaosmonkey.dev">support@chaosmonkey.dev</a>.</li>
+            <li><strong>Disable telemetry.</strong> Extension telemetry can be disabled at any time through the ChaosMonkey extension setting in the IDE. When disabled, the extension stops sending telemetry.</li>
+            <li><strong>Uninstall.</strong> Uninstalling the extension stops ChaosMonkey execution on that workstation. No independent daemon or background service remains after uninstall.</li>
+            <li><strong>Credential revocation.</strong> Extension and bridge credentials can be revoked by the customer administrator; revoked credentials are rejected at the API.</li>
+            <li><strong>Integrations.</strong> Optional integrations such as GitHub are admin-controlled and can be disabled by the customer administrator.</li>
+            <li><strong>Applicable rights.</strong> Depending on your jurisdiction, you may have rights to access, correct, or delete personal information about you, or to object to or restrict certain processing. Because developer telemetry is pseudonymous and controlled by your organization, many requests are best made through your organization's administrator. You may also contact us as described in Section 20.</li>
+          </ul>
+
+          <h2 id="children">18. Children</h2>
+          <p>ChaosMonkey is a professional engineering product and is not directed to children. We do not knowingly collect personal information from children. If you believe we have collected information from a child in error, please contact us at <a href="mailto:support@chaosmonkey.dev">support@chaosmonkey.dev</a> so we can address it.</p>
+
+          <h2 id="changes">19. Changes to this policy</h2>
+          <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Effective date" above. For material changes, we will provide notice through the platform or to customer administrators as appropriate.</p>
+
+          <h2 id="contact">20. Contact</h2>
+          <p>ChaosMonkey is operated by <strong>Matthieu R McClintock d/b/a ChaosMonkey</strong>. For questions about this Privacy Policy, data requests, or security inquiries, contact us at <a href="mailto:support@chaosmonkey.dev">support@chaosmonkey.dev</a>, or through your organization's ChaosMonkey administrator.</p>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container-fluid">
+      <p class="text-muted">© 2026 Matthieu R McClintock d/b/a ChaosMonkey. Built for engineering leaders, by engineering leaders.</p>
+      <p class="text-muted mb-0">
+        <a href="/">Home</a> •
+        <a href="/privacy">Privacy</a> •
+        <a href="/terms">Terms</a> •
+        <a href="mailto:support@chaosmonkey.dev">Contact</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

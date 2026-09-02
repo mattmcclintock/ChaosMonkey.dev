@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Analytics is intentionally NOT loaded on legal pages. -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms &amp; Conditions — ChaosMonkey</title>
+  <meta name="description" content="ChaosMonkey Terms & Conditions for use of the platform, IDE extension, Claude Code terminal bridge, and dashboard." />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+  <!-- Product header font -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg0:#050506;
+      --bg1:#0a0a0d;
+      --panel:#11131a;
+      --panel2:#151824;
+      --text:#ffffff;
+      --text2:rgba(255,255,255,.78);
+      --muted:rgba(255,255,255,.56);
+      --accent:#00ff88;
+      --danger:#ff6a6a;
+      --warn:#ffc857;
+      --blue:#5f8cff;
+      --border:rgba(255,255,255,.12);
+      --border2:rgba(255,255,255,.18);
+      --haloBlue: rgba(47,124,255,.20);
+      --haloGreen: rgba(0,255,136,.10);
+      --haloPurple: rgba(120,80,255,.10);
+      --shadow: 0 0 0 1px rgba(255,255,255,.06), 0 20px 70px rgba(0,0,0,.62);
+      --shadowSoft: 0 0 0 1px rgba(255,255,255,.05), 0 14px 34px rgba(0,0,0,.50);
+      --radius:20px;
+      --radiusSm:14px;
+      --max:1180px;
+    }
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      line-height:1.7;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background:
+        radial-gradient(1100px 700px at 50% -20%, var(--haloBlue), transparent 60%),
+        radial-gradient(900px 520px at 82% 0%, var(--haloGreen), transparent 55%),
+        radial-gradient(900px 520px at 12% 12%, var(--haloPurple), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+    }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    .container-fluid{ max-width:var(--max); margin:0 auto; padding:0 22px; }
+
+    /* Header — matches homepage */
+    .dashboard-header{
+      background:rgba(0,0,0,.88);
+      border-bottom:1px solid var(--border);
+      position:sticky; top:0; z-index:1000;
+      backdrop-filter:blur(14px);
+    }
+    .header-inner{ min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:8px 0; }
+    .brand-lockup{ display:flex; align-items:center; gap:14px; min-width:0; text-decoration:none; }
+    .brand-lockup:hover{ text-decoration:none; }
+    .dashboard-logo{ width:58px; height:58px; border-radius:10px; object-fit:cover; box-shadow:0 0 0 1px rgba(255,255,255,.12), 0 10px 24px rgba(0,0,0,.55); flex:0 0 auto; }
+    .dashboard-title{
+      font-family:"Bebas Neue",system-ui,sans-serif;
+      font-size:2.15rem; letter-spacing:.09em; line-height:1; margin:0;
+      color:rgba(255,255,255,.96); text-transform:uppercase;
+      text-shadow:0 0 18px rgba(47,124,255,.22), 0 0 28px rgba(0,255,136,.10);
+    }
+    .nav-actions{ display:flex; align-items:center; justify-content:flex-end; gap:10px; flex-wrap:wrap; }
+    .nav-action{
+      display:inline-flex; align-items:center; justify-content:center;
+      height:38px; padding:0 14px; border-radius:999px;
+      border:1px solid var(--border2); background:rgba(255,255,255,.035);
+      color:rgba(255,255,255,.86); text-decoration:none; box-shadow:var(--shadowSoft);
+      gap:8px; font-weight:800; font-size:.92rem; letter-spacing:-.01em; white-space:nowrap;
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .nav-action:hover{ transform:translateY(-1px); background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.25); color:#fff; text-decoration:none; }
+    .nav-action.primary{ border-color:rgba(0,255,136,.30); background:rgba(0,255,136,.11); color:#fff; }
+
+    /* Legal layout — calmer, constrained */
+    .legal-hero{ padding:3.5rem 0 1.25rem; }
+    .legal-hero .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      color:rgba(255,255,255,.68); font-weight:900; letter-spacing:.14em;
+      text-transform:uppercase; font-size:.75rem; margin-bottom:.9rem;
+    }
+    .legal-hero .kicker .dot{ width:7px; height:7px; border-radius:999px; background:var(--accent); box-shadow:0 0 18px rgba(0,255,136,.45); }
+    .legal-hero h1{ font-size:clamp(2.2rem,4vw,3.4rem); font-weight:900; letter-spacing:-.045em; line-height:1; margin:0 0 .5rem; color:#fff; }
+    .legal-hero .effective{ color:var(--muted); font-size:.95rem; margin:0; }
+
+    .legal-body{ padding:0 0 3.5rem; }
+    .legal-panel{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+      box-shadow:var(--shadowSoft);
+      padding:30px 34px;
+    }
+    .toc{
+      border:1px solid var(--border); border-radius:var(--radiusSm);
+      background:rgba(255,255,255,.025); padding:18px 22px; margin-bottom:26px;
+    }
+    .toc h2{ font-size:.95rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.72); margin:0 0 10px; }
+    .toc ol{ margin:0; padding-left:18px; columns:2; column-gap:28px; }
+    .toc li{ margin-bottom:5px; color:var(--text2); break-inside:avoid; }
+    .toc a{ color:var(--text2); }
+    .toc a:hover{ color:var(--accent); }
+
+    .legal-panel h2{
+      font-size:1.3rem; font-weight:900; letter-spacing:-.02em; color:#fff;
+      margin:2.1rem 0 .65rem; padding-top:.6rem; border-top:1px solid var(--border);
+    }
+    .legal-panel h2:first-child{ border-top:none; margin-top:0; padding-top:0; }
+    .legal-panel p{ color:var(--text2); margin:0 0 .8rem; }
+    .legal-panel ul, .legal-panel ol{ padding-left:20px; margin:0 0 1rem; }
+    .legal-panel li{ color:var(--text2); margin-bottom:.4rem; }
+    .legal-panel strong{ color:#fff; }
+
+    footer{ padding:3rem 0; border-top:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.02); text-align:center; }
+    footer a{ color:rgba(255,255,255,.58); text-decoration:none; }
+    footer a:hover{ color:rgba(255,255,255,.78); text-decoration:none; }
+    .text-muted{ color:var(--muted) !important; }
+
+    @media (max-width: 768px){
+      .container-fluid{ padding:0 16px; }
+      .header-inner{ align-items:flex-start; flex-direction:column; padding:12px 0; }
+      .dashboard-logo{ width:46px; height:46px; }
+      .dashboard-title{ font-size:1.8rem; }
+      .nav-actions{ width:100%; justify-content:flex-start; }
+      .nav-action{ height:36px; font-size:.88rem; padding:0 12px; }
+      .legal-panel{ padding:22px 18px; }
+      .toc ol{ columns:1; }
+      .legal-hero{ padding:2.5rem 0 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header — matches homepage -->
+  <header class="dashboard-header">
+    <div class="container-fluid">
+      <div class="header-inner">
+        <a class="brand-lockup" href="/" aria-label="ChaosMonkey home">
+          <img src="/CM-icon.png" alt="ChaosMonkey.dev Logo" class="dashboard-logo" />
+          <h1 class="dashboard-title">CHAOSMONKEY</h1>
+        </a>
+        <nav class="nav-actions" aria-label="Primary navigation">
+          <a class="nav-action" href="/#demo"><i class="bi bi-play-circle"></i> Demo</a>
+          <a class="nav-action" href="/#how-it-works"><i class="bi bi-diagram-3"></i> How it works</a>
+          <a class="nav-action primary" href="/#early-access"><i class="bi bi-lightning-charge"></i> Early access</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="legal-hero">
+      <div class="container-fluid">
+        <div class="kicker"><span class="dot"></span> Legal</div>
+        <h1>Terms &amp; Conditions</h1>
+        <p class="effective">Effective date: September 1, 2026</p>
+      </div>
+    </section>
+
+    <section class="legal-body">
+      <div class="container-fluid">
+        <div class="legal-panel">
+
+          <nav class="toc" aria-label="Contents">
+            <h2>Contents</h2>
+            <ol>
+              <li><a href="#agreement">Agreement and parties</a></li>
+              <li><a href="#service">The Service</a></li>
+              <li><a href="#eligibility">Eligibility and authorized use</a></li>
+              <li><a href="#responsibilities">Customer and user responsibilities</a></li>
+              <li><a href="#data">Customer data and processing authorization</a></li>
+              <li><a href="#integrations">Integrations</a></li>
+              <li><a href="#acceptable-use">Acceptable use</a></li>
+              <li><a href="#confidentiality">Confidentiality</a></li>
+              <li><a href="#ip">Intellectual property</a></li>
+              <li><a href="#availability">Service changes and availability</a></li>
+              <li><a href="#warranties">Disclaimer of warranties</a></li>
+              <li><a href="#termination">Termination and access suspension</a></li>
+              <li><a href="#changes">Changes to these Terms</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ol>
+          </nav>
+
+          <h2 id="agreement">1. Agreement and parties</h2>
+          <p>These Terms &amp; Conditions ("Terms") govern access to and use of the ChaosMonkey platform, including the ChaosMonkey IDE extension, the ChaosMonkey Claude Code terminal bridge, the customer ChaosMonkey API, the leadership dashboard, and the public website at <a href="https://chaosmonkey.dev">chaosmonkey.dev</a> (collectively, the "Service"). The Service is operated by <strong>Matthieu R McClintock d/b/a ChaosMonkey</strong> ("ChaosMonkey," "we," "us," or "our").</p>
+          <p>ChaosMonkey is offered to customer organizations. A customer's use may also be governed by a separate agreement with us; where such an agreement exists and conflicts with these Terms, that agreement controls with respect to that customer's use. By accessing or using the Service, you agree to these Terms. If you do not agree, do not use the Service.</p>
+
+          <h2 id="service">2. The Service</h2>
+          <p>ChaosMonkey is a developer productivity platform that collects pseudonymous activity metadata from supported IDE extensions and the Claude Code terminal bridge and presents performance, AI-usage, and delivery insights to authorized leadership and engineering-management users. The Service measures patterns of activity, not the content of work. Further detail about what is and is not collected is set out in our <a href="/privacy">Privacy Policy</a>, which is incorporated into these Terms by reference.</p>
+
+          <h2 id="eligibility">3. Eligibility and authorized use</h2>
+          <ul>
+            <li>You may use the Service only if you are authorized to do so by a customer organization, or if you are using the public website in accordance with these Terms.</li>
+            <li>You represent that you are of legal age to form a binding contract and that, if you are accepting these Terms or using the Service on behalf of an organization, you have the authority to bind that organization.</li>
+            <li>Developers participate through enrollment codes issued by their organization's administrator. Enrollment codes are short-lived and rate-limited. Extension and bridge credentials are bound to a specific installation and organization and may not be shared or transferred.</li>
+          </ul>
+
+          <h2 id="responsibilities">4. Customer and user responsibilities</h2>
+          <ul>
+            <li>You are responsible for the accuracy of information you provide to the Service and for maintaining the confidentiality of any credentials issued to you.</li>
+            <li>Customer administrators are responsible for managing enrollments, credentials, integrations, and authorized users within their organization, and for any notices or consents owed to their developers under applicable law or organizational policy.</li>
+            <li>You must comply with all applicable laws and with your organization's policies when using the Service, including any policies applicable to monitoring, telemetry, and the use of AI-assisted development tools.</li>
+            <li>You must not misuse the Service, including by attempting to circumvent authentication, validation, or installation binding, or by submitting data through means other than the authorized extension or bridge.</li>
+          </ul>
+
+          <h2 id="data">5. Customer data and processing authorization</h2>
+          <p>Customer data — including telemetry and any data ingested through integrations — is controlled by the customer organization. As between the customer and ChaosMonkey, the customer owns its customer data. By using the Service, the customer authorizes ChaosMonkey to process customer data as needed to operate, maintain, secure, and provide the Service and to provide the insights and functionality described in these Terms and the Privacy Policy. ChaosMonkey will not share customer telemetry across customer organizations.</p>
+
+          <h2 id="integrations">6. Integrations</h2>
+          <p>The Service supports optional, admin-initiated integrations with external systems (such as GitHub) to enable correlation of developer activity with pull requests, reviews, and delivery outcomes. Integrations are not required for core telemetry collection and are not enabled by default. The customer is responsible for ensuring it has the rights and authorizations required to connect any external system and to process data obtained through that integration. Any integration permissions and scopes may be reviewed separately with the customer's security team before enablement.</p>
+
+          <h2 id="acceptable-use">7. Acceptable use</h2>
+          <p>You will not, and will not authorize or assist any third party to:</p>
+          <ul>
+            <li>access or use the Service in a manner that violates applicable law or the rights of others;</li>
+            <li>submit content or data that is unlawful, infringing, or malicious, or that exploits the Service to harm systems or data;</li>
+            <li>reverse engineer, decompile, or attempt to extract source code from the Service except to the extent permitted by law;</li>
+            <li>interfere with the proper functioning of the Service, its authentication, validation, or rate limits; or</li>
+            <li>use the Service to monitor individual developers in a manner inconsistent with the Service's design or applicable law.</li>
+          </ul>
+
+          <h2 id="confidentiality">8. Confidentiality</h2>
+          <p>Each party will use reasonable care to protect the confidentiality of non-public information it receives from the other in connection with the Service and will use it only to exercise rights and fulfill obligations under these Terms and any customer agreement. This section does not limit either party's rights under any separate confidentiality or customer agreement.</p>
+
+          <h2 id="ip">9. Intellectual property</h2>
+          <p>ChaosMonkey retains all right, title, and interest in the Service, including the platform, extension, bridge, dashboard, and related software, documentation, and trademarks. The Service is licensed, not sold. Customer data remains the property of the customer as set out in Section 5. These Terms do not grant you any right to use ChaosMonkey trademarks, branding, or trade names except as expressly permitted in writing.</p>
+
+          <h2 id="availability">10. Service changes and availability</h2>
+          <p>We may modify, suspend, or discontinue features of the Service, or release new features, from time to time. The Service is provided on a reasonable-efforts basis. We do not guarantee uninterrupted, error-free, or secure access, and we do not represent any guaranteed uptime or service-level commitment in these Terms. We will use reasonable efforts to give customer administrators notice of material changes where practicable.</p>
+
+          <h2 id="warranties">11. Disclaimer of warranties</h2>
+          <p>EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE LAW, THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, OR NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICE WILL BE ERROR-FREE, SECURE, UNINTERRUPTED, OR THAT ANY INSIGHT OR METRIC WILL BE ACCURATE, COMPLETE, OR SUITABLE FOR ANY PARTICULAR PURPOSE. INSIGHTS ARE DERIVED FROM TELEMETRY AND ARE PROVIDED FOR INFORMATIONAL PURPOSES ONLY.</p>
+
+          <h2 id="termination">12. Termination and access suspension</h2>
+          <p>You may stop using the Service at any time. Customer administrators may revoke credentials and disable integrations. We may suspend or terminate access to the Service if these Terms are violated, or as set out in a customer agreement. Customer administrators may revoke affected credentials, after which telemetry submitted with those credentials is rejected by the API. Uninstalling the extension stops ChaosMonkey execution on that workstation, with no independent daemon or background service remaining. Sections that by their nature should survive termination (including ownership, the disclaimer of warranties, and intellectual property) will survive.</p>
+
+          <h2 id="changes">13. Changes to these Terms</h2>
+          <p>We may update these Terms from time to time. When we do, we will revise the "Effective date" above. For material changes, we will provide notice through the platform or to customer administrators as appropriate. Continued use of the Service after a change takes effect constitutes acceptance of the updated Terms.</p>
+
+          <h2 id="contact">14. Contact</h2>
+          <p>ChaosMonkey is operated by <strong>Matthieu R McClintock d/b/a ChaosMonkey</strong>. For questions about these Terms, contact us at <a href="mailto:support@chaosmonkey.dev">support@chaosmonkey.dev</a>, or through your organization's ChaosMonkey administrator.</p>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container-fluid">
+      <p class="text-muted">© 2026 Matthieu R McClintock d/b/a ChaosMonkey. Built for engineering leaders, by engineering leaders.</p>
+      <p class="text-muted mb-0">
+        <a href="/">Home</a> •
+        <a href="/privacy">Privacy</a> •
+        <a href="/terms">Terms</a> •
+        <a href="mailto:support@chaosmonkey.dev">Contact</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
