@@ -12,8 +12,16 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ChaosMonkey — AI Engineering ROI Diagnosis</title>
-  <meta name="description" content="ChaosMonkey shows engineering leaders where AI is helping, where it is hurting, and what to fix next." />
+  <title>ChaosMonkey — Connect AI coding activity to engineering outcomes</title>
+  <meta name="description" content="ChaosMonkey is an open-source, self-hosted platform that gives engineering teams visibility into how AI coding tools are used, how workflows evolve, and how that activity relates to software delivery." />
+
+  <!-- Social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ChaosMonkey — Connect AI coding activity to engineering outcomes" />
+  <meta property="og:description" content="Open source. Self-hosted. Built for engineering teams. Telemetry from the AI coding tools your team already uses." />
+  <meta property="og:url" content="https://chaosmonkey.dev/" />
+  <meta property="og:image" content="https://chaosmonkey.dev/ChaosMonkey_01@2x.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -128,7 +136,7 @@
 
     /* Typography */
     h1,h2,h3{ color:#fff; }
-    h1{ font-size:clamp(2.55rem, 5.2vw, 5rem); font-weight:900; letter-spacing:-.055em; line-height:.98; margin:0 0 1.1rem; }
+    h1{ font-size:clamp(2.55rem, 5.2vw, 4.6rem); font-weight:900; letter-spacing:-.055em; line-height:1.02; margin:0 0 1.1rem; }
     h2{ font-size:clamp(2rem, 3vw, 3.25rem); font-weight:900; letter-spacing:-.04em; line-height:1.03; margin:0 0 .85rem; }
     h3{ font-size:clamp(1.28rem, 1.5vw, 1.62rem); font-weight:900; letter-spacing:-.02em; margin:0 0 .65rem; }
     p{ color:var(--text2); margin:0 0 1rem; }
@@ -149,6 +157,24 @@
       margin-bottom:1rem;
     }
     .kicker .dot{ width:7px; height:7px; border-radius:999px; background:var(--accent); box-shadow:0 0 18px rgba(0,255,136,.45); }
+
+    /* OSS banner */
+    .oss-banner{
+      display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap;
+      padding:10px 16px;
+      background:rgba(0,255,136,.07);
+      border-bottom:1px solid rgba(0,255,136,.20);
+      font-size:.92rem; font-weight:800; color:rgba(255,255,255,.88);
+      text-align:center;
+    }
+    .oss-banner a{ color:var(--accent); text-decoration:none; font-weight:900; }
+    .oss-banner a:hover{ text-decoration:underline; }
+    .oss-badge{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:3px 10px; border-radius:999px;
+      background:rgba(0,255,136,.14); border:1px solid rgba(0,255,136,.30);
+      color:var(--accent); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase;
+    }
 
     /* Buttons */
     .btn{
@@ -178,6 +204,7 @@
     .hero{ padding:4rem 0 3.25rem; }
     .hero-text{ max-width:1030px; margin:0 auto; text-align:center; }
     .subheadline{ font-size:clamp(1.05rem, 1.5vw, 1.32rem); color:rgba(255,255,255,.76); max-width:840px; margin:0 auto 1.45rem; }
+    .hero-statement{ font-size:clamp(1rem, 1.3vw, 1.16rem); color:var(--accent); font-weight:900; letter-spacing:.02em; margin-bottom:0; }
     .hero-actions{ display:flex; gap:.85rem; flex-wrap:wrap; justify-content:center; margin:1.3rem 0 1.25rem; }
     .hero-proof{
       display:grid;
@@ -200,7 +227,30 @@
       font-size:.95rem;
     }
     .proof-pill i{ color:var(--accent); margin-top:.15rem; }
-    .hero-irony{ margin-top:1rem; font-size:.93rem; color:rgba(255,255,255,.50); }
+    .hero-irony{ margin-top:1.15rem; font-size:.93rem; color:rgba(255,255,255,.50); }
+
+    /* Code block */
+    .code-shell{
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      max-width:860px;
+      margin:1.6rem auto 0;
+    }
+    .code-topbar{ display:flex; align-items:center; gap:9px; padding:11px 14px; background:rgba(0,0,0,.25); border-bottom:1px solid rgba(255,255,255,.10); }
+    .code-topbar .shot-label{ font-family:inherit; }
+    .code-body{ padding:18px 20px; overflow-x:auto; }
+    .code-body pre{
+      margin:0;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      font-size:.92rem;
+      line-height:1.7;
+      color:rgba(255,255,255,.88);
+      white-space:pre;
+    }
+    .code-body .c{ color:rgba(255,255,255,.42); }
 
     /* Video */
     .video-shell{
@@ -260,24 +310,13 @@
       margin-bottom:14px;
       font-size:1.1rem;
     }
-    .bad-card .card-icon{ color:var(--danger); background:rgba(255,106,106,.09); border-color:rgba(255,106,106,.20); }
     .warn-card .card-icon{ color:var(--warn); background:rgba(255,200,87,.09); border-color:rgba(255,200,87,.20); }
     .cardx p{ margin-bottom:0; }
-
-    .tradeoff-list{ display:grid; gap:12px; margin-top:22px; }
-    .tradeoff-row{
-      display:grid;
-      grid-template-columns:1fr auto 1fr;
-      align-items:center;
-      gap:12px;
-      padding:14px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);
+    .cardx .tag{
+      display:inline-block; margin-top:12px; padding:3px 10px; border-radius:999px;
+      font-size:.74rem; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+      border:1px solid rgba(255,255,255,.16); color:rgba(255,255,255,.66);
     }
-    .tradeoff-row .good{ color:rgba(140,255,180,.95); font-weight:900; }
-    .tradeoff-row .bad{ color:rgba(255,180,180,.95); font-weight:900; text-align:right; }
-    .tradeoff-row .arrow{ color:rgba(255,255,255,.35); font-weight:900; }
 
     /* Screenshot frame */
     .shot-frame{
@@ -302,6 +341,7 @@
     .shot-label{ font-size:.9rem; color:rgba(255,255,255,.64); margin-left:.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .product-shot{ width:100%; display:block; background:#0b0b0d; }
     .shot-caption{ padding:12px 14px 14px; color:rgba(255,255,255,.62); font-size:.92rem; border-top:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.14); text-align:center; }
+    .shot-grid{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:22px; }
 
     .bullets{ list-style:none; padding:0; margin:1.1rem 0 0; display:grid; gap:10px; }
     .bullets li{ display:flex; align-items:flex-start; gap:10px; color:rgba(255,255,255,.72); }
@@ -313,19 +353,20 @@
     .feature-row{ align-items:center; gap:0; }
     .feature-copy{ padding:0 1rem; }
 
-    /* Insight examples */
-    .insight-strip{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:14px; margin-top:2rem; }
-    .insight-card{
-      padding:18px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.035);
-      box-shadow:var(--shadowSoft);
+    /* Steps */
+    .steps{ display:grid; gap:0; margin-top:1.6rem; }
+    .step{
+      display:grid; grid-template-columns:44px 1fr; gap:16px; align-items:flex-start;
+      padding:18px 0; border-top:1px solid rgba(255,255,255,.08);
     }
-    .insight-card .tag{ display:inline-flex; align-items:center; gap:7px; margin-bottom:12px; color:rgba(255,255,255,.62); font-size:.82rem; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
-    .insight-card .tag i{ color:var(--warn); }
-    .insight-card strong{ display:block; font-size:1.05rem; line-height:1.3; margin-bottom:8px; }
-    .insight-card p{ font-size:.94rem; margin:0; color:rgba(255,255,255,.64); }
+    .step-num{
+      width:36px; height:36px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(0,255,136,.10); border:1px solid rgba(0,255,136,.20);
+      color:var(--accent); font-weight:900;
+    }
+    .step strong{ display:block; color:#fff; margin-bottom:4px; }
+    .step span{ color:rgba(255,255,255,.68); }
 
     /* CTA */
     .cta-section{ text-align:center; padding:5.75rem 0; }
@@ -340,19 +381,6 @@
     }
     .cta-panel::before{ content:""; position:absolute; inset:-2px; background:radial-gradient(720px 360px at 50% 0%, rgba(0,255,136,.12), transparent 62%); pointer-events:none; }
     .cta-panel > *{ position:relative; }
-    .form-wrap{ max-width:620px; margin:1.35rem auto 0; }
-    .form-control{
-      background:rgba(255,255,255,.04) !important;
-      border-color:rgba(255,255,255,.15) !important;
-      color:rgba(255,255,255,.92) !important;
-      border-radius:999px !important;
-      padding:.92rem 1rem !important;
-      min-height:52px;
-    }
-    .form-control::placeholder{ color:rgba(255,255,255,.42); }
-    .cta-status{ margin-top:12px; font-size:.95rem; color:rgba(255,255,255,.70); min-height:24px; }
-    .cta-status.success{ color:rgba(140,255,180,.96); }
-    .cta-status.error{ color:rgba(255,150,150,.96); }
 
     footer{ padding:3rem 0; border-top:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.02); text-align:center; }
     footer a{ color:rgba(255,255,255,.58); text-decoration:none; }
@@ -364,13 +392,10 @@
 
     @media (max-width: 991px){
       .section{ padding:4.5rem 0; }
-      .hero-proof,.cards-3,.insight-strip{ grid-template-columns:1fr; }
+      .hero-proof,.cards-3,.shot-grid{ grid-template-columns:1fr; }
       .cards-2{ grid-template-columns:1fr; }
       .feature-copy{ padding:0; }
       .shot-frame{ margin-top:1.2rem; }
-      .tradeoff-row{ grid-template-columns:1fr; }
-      .tradeoff-row .arrow{ display:none; }
-      .tradeoff-row .bad{ text-align:left; }
     }
 
     @media (max-width: 768px){
@@ -381,16 +406,14 @@
       .nav-actions{ width:100%; justify-content:flex-start; }
       .nav-action{ height:36px; font-size:.88rem; padding:0 12px; }
       .hero{ padding:3.15rem 0 2.5rem; }
-      h1{ font-size:clamp(2.35rem, 12vw, 3.4rem); }
+      h1{ font-size:clamp(2.2rem, 11vw, 3.2rem); }
       .subheadline{ font-size:1.02rem; }
       .hero-actions .btn{ width:100%; }
       .proof-pill{ font-size:.92rem; }
       .section-heading{ text-align:left; }
-      .cards-3,.cards-2,.insight-strip{ gap:12px; }
+      .cards-3,.cards-2{ gap:12px; }
       .cardx{ padding:18px; }
       .cta-panel{ padding:34px 18px; border-radius:22px; }
-      #earlyAccessForm{ flex-direction:column; }
-      #earlyAccessForm .btn{ width:100%; }
     }
   </style>
 </head>
@@ -401,174 +424,169 @@
     <div class="container-fluid">
       <div class="header-inner">
         <a class="brand-lockup" href="#top" aria-label="ChaosMonkey home">
-          <img src="CM-icon.png" alt="ChaosMonkey.dev Logo" class="dashboard-logo" />
+          <img src="CM-icon.png" alt="ChaosMonkey logo" class="dashboard-logo" />
           <h1 class="dashboard-title">CHAOSMONKEY</h1>
         </a>
 
         <nav class="nav-actions" aria-label="Primary navigation">
-          <a class="nav-action" href="#demo"><i class="bi bi-play-circle"></i> Demo</a>
+          <a class="nav-action" href="https://github.com/chaosmonkey-dev/chaosmonkey" target="_blank" rel="noopener"><i class="bi bi-github"></i> GitHub</a>
           <a class="nav-action" href="#how-it-works"><i class="bi bi-diagram-3"></i> How it works</a>
-          <a class="nav-action primary" href="#early-access"><i class="bi bi-lightning-charge"></i> Early access</a>
+          <a class="nav-action" href="#demo"><i class="bi bi-play-circle"></i> Demo</a>
+          <a class="nav-action primary" href="https://github.com/chaosmonkey-dev/chaosmonkey/blob/main/docs/installation.md" target="_blank" rel="noopener"><i class="bi bi-rocket-takeoff"></i> Get started</a>
         </nav>
       </div>
     </div>
   </header>
+
+  <!-- Open source banner -->
+  <div class="oss-banner">
+    <span class="oss-badge"><i class="bi bi-unlock"></i> We're open</span>
+    <span>ChaosMonkey is now open source — Apache-2.0, self-hosted, Community Preview.
+      <a href="https://github.com/chaosmonkey-dev/chaosmonkey" target="_blank" rel="noopener">View v0.1.0 on GitHub</a>
+    </span>
+  </div>
 
   <main id="top">
     <!-- HERO -->
     <section class="hero">
       <div class="container-fluid">
         <div class="hero-text reveal">
-          <div class="kicker"><span class="dot"></span> Most teams can’t tell if AI is actually helping</div>
+          <div class="kicker"><span class="dot"></span> Open source · Self-hosted · Built for engineering teams</div>
 
-          <h1>Your AI tools might be slowing your team down.</h1>
+          <h1>Connect AI coding activity to engineering outcomes.</h1>
 
           <p class="subheadline">
-            More code does not always mean faster delivery. ChaosMonkey shows engineering leaders where AI is helping, where it is hurting, and what to fix next.
+            ChaosMonkey gives engineering teams visibility into how AI coding tools are used, how workflows evolve, and how that activity relates to software delivery.
           </p>
 
           <div class="hero-actions">
-            <a href="#early-access" class="btn btn-primary">See what AI is doing to your team</a>
-            <a href="#demo" class="btn btn-outline-primary">Watch demo (2:09)</a>
+            <a href="https://github.com/chaosmonkey-dev/chaosmonkey" class="btn btn-primary" target="_blank" rel="noopener"><i class="bi bi-github me-1"></i> View on GitHub</a>
+            <a href="https://github.com/chaosmonkey-dev/chaosmonkey/blob/main/docs/installation.md" class="btn btn-outline-primary" target="_blank" rel="noopener">Get started</a>
           </div>
 
           <div class="hero-proof" aria-label="ChaosMonkey value propositions">
-            <div class="proof-pill"><i class="bi bi-check-circle-fill"></i><span>Connect AI usage to reviews, merges, deployments, reliability, and spend</span></div>
-            <div class="proof-pill"><i class="bi bi-check-circle-fill"></i><span>Surface live “what changed / why / what to do” Performance Insights</span></div>
-            <div class="proof-pill"><i class="bi bi-check-circle-fill"></i><span>Compare tools, teams, repos, models, and workflows with evidence</span></div>
+            <div class="proof-pill"><i class="bi bi-check-circle-fill"></i><span>Session telemetry from the AI coding tools your team already uses</span></div>
+            <div class="proof-pill"><i class="bi bi-check-circle-fill"></i><span>Per-tool workflow analytics and evidence-gated insights</span></div>
+            <div class="proof-pill"><i class="bi bi-check-circle-fill"></i><span>Optional GitHub integration for delivery correlation</span></div>
           </div>
 
           <div class="hero-irony">
-            Slightly ironic name, serious intent: we measure the chaos so your delivery pipeline doesn’t have to.
+            Different monkeys. Different chaos. Yes, we know about the other Chaos Monkey.
           </div>
         </div>
 
-        <!-- Demo video -->
-        <div id="demo" class="reveal">
-          <div class="video-shell">
-            <div class="video-16x9">
-              <video controls playsinline preload="metadata" poster="/assets/videos/demo-poster.png">
-                <source src="https://chaosmonkey-demo.s3.us-east-2.amazonaws.com/ChaosMonkey+V1+Demo.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <div class="video-caption">
-              <strong>ChaosMonkey Demo</strong>
-              <span>Video walkthrough of cause → effect → outcome · </span>
-              <a href="https://www.youtube.com/watch?v=2lXKbU3KVFY&t=3s" target="_blank" rel="noopener">Deep Dive</a>
-            </div>
+        <!-- Docker quickstart -->
+        <div class="code-shell reveal">
+          <div class="code-topbar">
+            <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
+            <div class="shot-label">Two commands to a running instance</div>
           </div>
-        </div>
-      </div>
-    </section>
+          <div class="code-body">
+<pre><span class="c"># Run the all-in-one container (nginx + Laravel + SQLite on /data)</span>
+docker run -d --name chaosmonkey \
+  -p 127.0.0.1:8080:80 \
+  -v chaosmonkey-data:/data \
+  ghcr.io/chaosmonkey-dev/chaosmonkey:0.1.0
 
-    <!-- Problem -->
-    <section class="section compact section-glow">
-      <div class="container-fluid">
-        <div class="section-heading reveal">
-          <div class="kicker"><span class="dot"></span> The hidden AI tradeoff</div>
-          <h2>AI doesn’t just speed things up. It moves the bottlenecks.</h2>
-          <p class="text-muted max-820">
-            Most teams can see adoption. Few can see whether AI is creating shipped value, review drag, rework, or reliability risk.
-          </p>
-        </div>
-
-        <div class="tradeoff-list reveal">
-          <div class="tradeoff-row">
-            <div class="good"><i class="bi bi-arrow-up-right me-2"></i>More generated code</div>
-            <div class="arrow">→</div>
-            <div class="bad"><i class="bi bi-exclamation-triangle me-2"></i>Slower reviews and larger PRs</div>
-          </div>
-          <div class="tradeoff-row">
-            <div class="good"><i class="bi bi-arrow-up-right me-2"></i>Higher AI adoption</div>
-            <div class="arrow">→</div>
-            <div class="bad"><i class="bi bi-exclamation-triangle me-2"></i>Uneven ROI across developers and teams</div>
-          </div>
-          <div class="tradeoff-row">
-            <div class="good"><i class="bi bi-arrow-up-right me-2"></i>Faster output</div>
-            <div class="arrow">→</div>
-            <div class="bad"><i class="bi bi-exclamation-triangle me-2"></i>More rework, escaped defects, or deployment pressure</div>
+<span class="c"># Create your administrator account, then open http://localhost:8080</span>
+docker exec -it chaosmonkey \
+  php /var/www/backend/artisan chaosmonkey:create-admin you@example.com</pre>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- How it works -->
+    <!-- What it does -->
     <section id="how-it-works" class="section">
       <div class="container-fluid">
         <div class="section-heading reveal">
           <div class="kicker"><span class="dot"></span> How it works</div>
-          <h2>We don’t track AI usage. We diagnose its impact.</h2>
+          <h2>Telemetry in. Sessions and signals out.</h2>
           <p class="text-muted max-820">
-            ChaosMonkey connects IDE activity, model usage, GitHub workflow data, and delivery outcomes into one decision system for engineering leaders.
+            ChaosMonkey ingests aggregate activity from supported AI coding clients, normalizes it into canonical sessions, and gives you per-tool analytics on your own infrastructure.
           </p>
         </div>
 
         <div class="cards-3">
           <div class="cardx reveal">
-            <div class="card-icon"><i class="bi bi-radar"></i></div>
-            <h3>Detect</h3>
-            <p>See where AI is changing behavior across coding, review, merge, and delivery.</p>
+            <div class="card-icon"><i class="bi bi-broadcast-pin"></i></div>
+            <h3>Collect</h3>
+            <p>Lightweight clients for VS Code and Cursor IDEs, Claude Code, Codex CLI, and the Cursor Agents Window send aggregate activity — counts and durations, not source code.</p>
+          </div>
+          <div class="cardx reveal">
+            <div class="card-icon"><i class="bi bi-diagram-3"></i></div>
+            <h3>Analyze</h3>
+            <p>Activity is normalized into canonical sessions with per-tool attribution: workflow breakdowns, productivity-by-tool, and configured spend estimates.</p>
           </div>
           <div class="cardx reveal warn-card">
-            <div class="card-icon"><i class="bi bi-search"></i></div>
-            <h3>Explain</h3>
-            <p>Understand why performance improved, stalled, or moved the bottleneck somewhere else.</p>
-          </div>
-          <div class="cardx reveal">
-            <div class="card-icon"><i class="bi bi-lightning-charge"></i></div>
-            <h3>Act</h3>
-            <p>Get recommendations for tool decisions, rollout priorities, workflow fixes, and ROI optimization.</p>
+            <div class="card-icon"><i class="bi bi-github"></i></div>
+            <h3>Correlate <span class="tag">Optional</span></h3>
+            <p>Connect GitHub (OAuth or App) to correlate sessions with pull requests, reviews, and deployments. Correlation is not causation — the evidence is presented, not verdicts.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Oh shit moment -->
-    <section class="section compact section-glow">
+    <!-- Real product screenshots -->
+    <section class="section section-glow">
       <div class="container-fluid">
         <div class="section-heading reveal">
-          <div class="kicker"><span class="dot"></span> What teams discover</div>
-          <h2>The useful answer is rarely “AI usage went up.”</h2>
-          <p class="text-muted max-720">
-            ChaosMonkey is built for the moment an engineering leader realizes the problem is not adoption. It is impact.
+          <div class="kicker"><span class="dot"></span> The actual product</div>
+          <h2>What you get on a real install.</h2>
+          <p class="text-muted max-820">
+            Screenshots from a running v0.1.0 container. All data shown is synthetic demo telemetry — no customer data is pictured.
           </p>
         </div>
 
-        <div class="insight-strip">
-          <div class="insight-card reveal">
-            <div class="tag"><i class="bi bi-exclamation-circle"></i> Review drag</div>
-            <strong>AI increased output, but doubled review pressure.</strong>
-            <p>More code reached PR review, but cycle time moved in the wrong direction.</p>
-          </div>
-          <div class="insight-card reveal">
-            <div class="tag"><i class="bi bi-exclamation-circle"></i> Uneven ROI</div>
-            <strong>One team captured most of the AI benefit.</strong>
-            <p>Same tools, different outcomes. ChaosMonkey shows where rollout is actually working.</p>
-          </div>
-          <div class="insight-card reveal">
-            <div class="tag"><i class="bi bi-exclamation-circle"></i> Tool signal</div>
-            <strong>One AI workflow drove gains. The rest added noise.</strong>
-            <p>Compare models, IDEs, teams, and repos without guessing from vibes.</p>
-          </div>
+        <div class="shot-grid">
+          <figure class="shot-frame reveal" style="grid-column:1 / -1;">
+            <div class="shot-topbar">
+              <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
+              <div class="shot-label">AI Operational Intelligence</div>
+            </div>
+            <img class="product-shot" src="assets/screens/oss/dashboard.png" alt="AI Operational Intelligence dashboard showing six tracked workflows" loading="lazy" />
+            <figcaption class="shot-caption">Per-workflow session analytics across every tracked tool — synthetic demo data.</figcaption>
+          </figure>
+
+          <figure class="shot-frame reveal">
+            <div class="shot-topbar">
+              <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
+              <div class="shot-label">Productivity by tool</div>
+            </div>
+            <img class="product-shot" src="assets/screens/oss/productivity-by-tool.png" alt="Productivity by tool cards with per-workflow AI activity" loading="lazy" />
+            <figcaption class="shot-caption">Compare AI activity, session runtime, and adoption across tools — synthetic demo data.</figcaption>
+          </figure>
+
+          <figure class="shot-frame reveal">
+            <div class="shot-topbar">
+              <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
+              <div class="shot-label">Pilot Health</div>
+            </div>
+            <img class="product-shot" src="assets/screens/oss/pilot-health.png" alt="Pilot Health operational view with telemetry freshness and extension versions" loading="lazy" />
+            <figcaption class="shot-caption">Rollout health: telemetry freshness, client versions, active sources.</figcaption>
+          </figure>
+        </div>
+
+        <div class="text-center mt-4">
+          <a class="btn btn-outline-primary" href="https://github.com/chaosmonkey-dev/chaosmonkey/blob/main/docs/product-gallery.md" target="_blank" rel="noopener">See the full product gallery</a>
         </div>
       </div>
     </section>
 
-    <!-- Stage-based -->
+    <!-- Supported tools -->
     <section class="section">
       <div class="container-fluid">
         <div class="row feature-row g-5">
           <div class="col-lg-5">
             <div class="feature-copy reveal">
-              <div class="kicker"><span class="dot"></span> Pipeline diagnosis</div>
-              <h2>See where AI gains turn into delivery drag.</h2>
-              <p>Most tools fragment your engineering story across dashboards. ChaosMonkey connects AI usage patterns to workflow behavior and delivery outcomes.</p>
+              <div class="kicker"><span class="dot"></span> Supported tools</div>
+              <h2>Clients for the tools your team already runs.</h2>
+              <p>Purpose-built clients ship as packaged artifacts served by your own backend — installs always get the version matching your server.</p>
               <ul class="bullets">
-                <li><i class="bi bi-arrow-right-circle"></i><span><strong>Plan &amp; Code:</strong> IDE adoption, model usage, and session patterns</span></li>
-                <li><i class="bi bi-arrow-right-circle"></i><span><strong>Review &amp; Merge:</strong> PR dynamics, reviewer load, rework, and cycle time</span></li>
-                <li><i class="bi bi-arrow-right-circle"></i><span><strong>Deploy &amp; Operate:</strong> reliability, recovery, and downstream risk</span></li>
+                <li><i class="bi bi-arrow-right-circle"></i><span><strong>IDE extension</strong> — VS Code / Cursor (VSIX), with Devin support</span></li>
+                <li><i class="bi bi-arrow-right-circle"></i><span><strong>Claude Code bridge</strong> — terminal agent telemetry</span></li>
+                <li><i class="bi bi-arrow-right-circle"></i><span><strong>Codex bridge</strong> — OpenAI Codex CLI</span></li>
+                <li><i class="bi bi-arrow-right-circle"></i><span><strong>Cursor Agents companion</strong> — for Cursor's standalone Agents Window</span></li>
               </ul>
             </div>
           </div>
@@ -576,188 +594,128 @@
             <div class="shot-frame reveal">
               <div class="shot-topbar">
                 <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
-                <div class="shot-label">AI code impacts your entire pipeline.</div>
+                <div class="shot-label">In-product client setup</div>
               </div>
-              <img class="product-shot" src="assets/screens/Pipeline-Diagnosis.png" alt="Pipeline and Performance Insights screenshot" loading="lazy" />
-              <div class="shot-caption">One narrative across Plan &amp; Code, Review &amp; Merge, and Deploy &amp; Operate.</div>
+              <img class="product-shot" src="assets/screens/oss/setup-developers.png" alt="Client setup panel listing IDE extension, Claude Code, Codex, and Cursor Agents companion" loading="lazy" />
+              <div class="shot-caption">Every client gets download and setup actions in the dashboard.</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Granular visibility -->
+    <!-- GitHub integration -->
     <section class="section section-glow">
       <div class="container-fluid">
         <div class="row feature-row g-5">
           <div class="col-lg-5 order-lg-2">
             <div class="feature-copy reveal">
-              <div class="kicker"><span class="dot"></span> Compare everything across all tools.</div>
-              <h2>Stop buying AI tools from vibes.</h2>
-              <p>Understand impact at every level: individual developer, team, repository, IDE, model, and workflow.</p>
-              <p>Filter by time range and metric to isolate what is actually driving performance gains, bottlenecks, or reliability shifts.</p>
+              <div class="kicker"><span class="dot"></span> GitHub delivery evidence — optional</div>
+              <h2>From coding sessions to delivery.</h2>
+              <p>Session telemetry works standalone. When you connect GitHub — via OAuth or a GitHub App you control — ChaosMonkey correlates sessions with pull requests, reviews, and deployments.</p>
               <ul class="bullets">
-                <li><i class="bi bi-arrow-right-circle"></i><span>Usage and output by developer, team, repo, and IDE</span></li>
-                <li><i class="bi bi-arrow-right-circle"></i><span>Model-level and tool-level performance comparison</span></li>
-                <li><i class="bi bi-arrow-right-circle"></i><span>Time-based trend analysis across the org</span></li>
+                <li><i class="bi bi-arrow-right-circle"></i><span>Delivery evidence is org- and repo-level unless an authoritative join exists</span></li>
+                <li><i class="bi bi-arrow-right-circle"></i><span>Correlation is not proof of causation — evidence is labeled by source</span></li>
+                <li><i class="bi bi-arrow-right-circle"></i><span>Identity-only logins produce zero engineering evidence</span></li>
               </ul>
             </div>
           </div>
           <div class="col-lg-7 order-lg-1">
-            <div class="shot-frame reveal">
-              <div class="shot-topbar">
-                <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
-                <div class="shot-label">Compare everything across all tools</div>
-              </div>
-              <img class="product-shot" src="assets/screens/Tool-Team-Comparison.png" alt="AI usage patterns screenshot" loading="lazy" />
-              <div class="shot-caption">Executive-scannable signals with context, filters, and comparison.</div>
+            <div class="cardx reveal" style="height:100%;">
+              <div class="card-icon"><i class="bi bi-git"></i></div>
+              <h3>What correlation adds</h3>
+              <p style="margin-bottom:14px;">Repositories, pull requests, commits, deployments, and releases join the evidence base. Performance Insights then weighs delivery context alongside telemetry — and still only surfaces findings the observed data supports.</p>
+              <p class="text-muted" style="font-size:.92rem;margin-bottom:0;"><i class="bi bi-info-circle me-2"></i>Spend shown in the product is a configured estimate per tool, not provider billing. Setup in <a href="https://github.com/chaosmonkey-dev/chaosmonkey/blob/main/docs/integrations.md" target="_blank" rel="noopener" style="color:rgba(255,255,255,.8);text-decoration:underline;">docs/integrations.md</a>.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Review breaks -->
-    <section class="section">
-      <div class="container-fluid">
-        <div class="row feature-row g-5">
-          <div class="col-lg-5">
-            <div class="feature-copy reveal">
-              <div class="kicker"><span class="dot"></span> Review and merge</div>
-              <h2>Find the stage where delivery actually breaks.</h2>
-              <p>The review stage is where AI’s indirect effects surface: larger PRs, reviewer concentration, rework, and cycle time risk.</p>
-              <p>ChaosMonkey identifies those patterns before “more AI” quietly becomes “more bottleneck.”</p>
-              <ul class="bullets">
-                <li><i class="bi bi-arrow-right-circle"></i><span>PR size dynamics and reviewer load</span></li>
-                <li><i class="bi bi-arrow-right-circle"></i><span>Cycle time and review concentration risk</span></li>
-                <li><i class="bi bi-arrow-right-circle"></i><span>AI’s impact on code review patterns</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-7">
-            <div class="shot-frame reveal">
-              <div class="shot-topbar">
-                <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
-                <div class="shot-label">Track how AI coding impacts reviews and merges</div>
-              </div>
-              <img class="product-shot" src="assets/screens/Review-and-Merge.png" alt="Review metrics and IDE performance screenshot" loading="lazy" />
-              <div class="shot-caption">Compare tools side-by-side and spot outliers before they become process debt.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Deploy -->
-    <section class="section section-glow">
-      <div class="container-fluid">
-        <div class="row feature-row g-5">
-          <div class="col-lg-5 order-lg-2">
-            <div class="feature-copy reveal">
-              <div class="kicker"><span class="dot"></span> Delivery outcomes</div>
-              <h2>Tie AI behavior to reliability, not just output.</h2>
-              <p>Failed deployments and recovery time are ultimate indicators of workflow health. Most tools cannot connect them back to upstream behavior.</p>
-              <p>ChaosMonkey traces deployment reliability back to AI adoption patterns, review dynamics, and workflow changes.</p>
-              <ul class="bullets">
-                <li><i class="bi bi-arrow-right-circle"></i><span>Deployment failure rate correlation</span></li>
-                <li><i class="bi bi-arrow-right-circle"></i><span>Recovery time and downstream reliability analysis</span></li>
-                <li><i class="bi bi-arrow-right-circle"></i><span>Reliability tradeoff insights</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-7 order-lg-1">
-            <div class="shot-frame reveal">
-              <div class="shot-topbar">
-                <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
-                <div class="shot-label">Connect AI coding -> delivery outcomes</div>
-              </div>
-              <img class="product-shot" src="assets/screens/Delivery-Outcomes.png" alt="Deployment outcomes screenshot" loading="lazy" />
-              <div class="shot-caption">Reliability metrics with clear units, context, and recency.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Performance Insights -->
-    <section class="section">
-      <div class="container-fluid">
-        <div class="row feature-row g-5">
-          <div class="col-lg-5">
-            <div class="feature-copy reveal">
-              <div class="kicker"><span class="dot"></span> Performance Insights</div>
-              <h2>Not just data. Decisions.</h2>
-              <p>Dashboards show what happened. Performance Insights tells you what changed, why it matters, and what to do next.</p>
-              <p>Our recommendation engine surfaces meaningful changes in AI behavior, workflow dynamics, and delivery outcomes — prioritized by expected impact.</p>
-              <ul class="bullets">
-                <li><i class="bi bi-arrow-right-circle"></i><span>Clear “what changed / why / what to do”</span></li>
-                <li><i class="bi bi-arrow-right-circle"></i><span>Prioritized optimization opportunities</span></li>
-                <li><i class="bi bi-arrow-right-circle"></i><span>Tool, workflow, and rollout decisions backed by evidence</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-7">
-            <div class="shot-frame reveal">
-              <div class="shot-topbar">
-                <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
-                <div class="shot-label">Actionable diagnosis and recommendations</div>
-              </div>
-              <img class="product-shot" src="assets/screens/Performance-Insights.png" alt="Time series analysis screenshot" loading="lazy" />
-              <div class="shot-caption">Trend changes over time with consistent filters and recommendation context.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Positioning -->
-    <section class="section compact section-glow">
+    <!-- Demo video -->
+    <section id="demo" class="section">
       <div class="container-fluid">
         <div class="section-heading reveal">
-          <div class="kicker"><span class="dot"></span> Built for AI-era engineering</div>
-          <h2>Not another dashboard. An AI impact diagnosis layer.</h2>
+          <div class="kicker"><span class="dot"></span> Product walkthrough</div>
+          <h2>See it end to end.</h2>
+        </div>
+        <div class="video-shell reveal">
+          <div class="video-16x9">
+            <video controls playsinline preload="metadata" poster="assets/video/demo-poster.png">
+              <source src="https://chaosmonkey-demo.s3.us-east-2.amazonaws.com/ChaosMonkey+V1+Demo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-caption">
+            <strong>ChaosMonkey demo</strong>
+            <span>Product walkthrough · </span>
+            <a href="https://www.youtube.com/watch?v=2lXKbU3KVFY&t=3s" target="_blank" rel="noopener">Deep Dive on YouTube</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Self-hosted / privacy -->
+    <section class="section section-glow">
+      <div class="container-fluid">
+        <div class="section-heading reveal">
+          <div class="kicker"><span class="dot"></span> Your infrastructure, your data</div>
+          <h2>Self-hosted by default.</h2>
           <p class="text-muted max-820">
-            ChaosMonkey is not retrofitted engineering analytics. It is built around the uncomfortable question engineering leaders now have to answer: is AI making delivery better, or just busier?
+            One container — nginx, PHP-FPM, Laravel, SQLite. All application data lives in a single Docker volume on your host. Nothing leaves your infrastructure unless you configure an integration that does.
           </p>
         </div>
 
         <div class="cards-3">
-          <div class="cardx bad-card reveal">
-            <div class="card-icon"><i class="bi bi-x-lg"></i></div>
-            <h3>Not activity tracking</h3>
-            <p>Usage is only useful when it connects to outcomes.</p>
-          </div>
-          <div class="cardx bad-card reveal">
-            <div class="card-icon"><i class="bi bi-x-lg"></i></div>
-            <h3>Not vanity productivity</h3>
-            <p>More code means nothing if review, rework, or reliability gets worse.</p>
+          <div class="cardx reveal">
+            <div class="card-icon"><i class="bi bi-hdd-stack"></i></div>
+            <h3>One volume</h3>
+            <p>SQLite, configuration, and the app key persist under <code style="color:rgba(255,255,255,.85);">/data</code> — upgrades replace the container, not your data.</p>
           </div>
           <div class="cardx reveal">
-            <div class="card-icon"><i class="bi bi-check2"></i></div>
-            <h3>Built for decisions</h3>
-            <p>Know which tools to expand, which workflows to fix, and where AI is actually paying off.</p>
+            <div class="card-icon"><i class="bi bi-eye-slash"></i></div>
+            <h3>Aggregate by design</h3>
+            <p>Clients send event counts, durations, and session metadata — engineered to avoid source code and file contents. See <a href="https://github.com/chaosmonkey-dev/chaosmonkey/blob/main/PRIVACY.md" target="_blank" rel="noopener" style="color:rgba(255,255,255,.8);text-decoration:underline;">PRIVACY.md</a>.</p>
+          </div>
+          <div class="cardx reveal">
+            <div class="card-icon"><i class="bi bi-shield-lock"></i></div>
+            <h3>You hold the keys</h3>
+            <p>Each install is its own authority. Optional GitHub integration runs against an OAuth app or GitHub App you own.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prefer managed? -->
+    <section class="section compact">
+      <div class="container-fluid">
+        <div class="cards-2">
+          <div class="cardx reveal">
+            <div class="card-icon"><i class="bi bi-cloud"></i></div>
+            <h3>Prefer a managed instance?</h3>
+            <p>We also run hosted ChaosMonkey instances for organizations that would rather not operate their own — same product, managed for you. <a href="mailto:support@chaosmonkey.dev" style="color:var(--accent);">Contact us</a>.</p>
+          </div>
+          <div class="cardx reveal">
+            <div class="card-icon"><i class="bi bi-people"></i></div>
+            <h3>Contributing</h3>
+            <p>ChaosMonkey is a Community Preview — issues, discussions, and contributions are welcome. Start with <a href="https://github.com/chaosmonkey-dev/chaosmonkey/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" style="color:var(--accent);">CONTRIBUTING.md</a> or join <a href="https://github.com/chaosmonkey-dev/chaosmonkey/discussions" target="_blank" rel="noopener" style="color:var(--accent);">Discussions</a>.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CTA -->
-    <section id="early-access" class="cta-section">
+    <section class="cta-section">
       <div class="container-fluid">
         <div class="cta-panel reveal">
-          <div class="kicker"><span class="dot"></span> Early access</div>
-          <h2>See what AI is actually doing to your team.</h2>
+          <div class="kicker"><span class="dot"></span> Community Preview</div>
+          <h2>Run it yourself. See what your AI tools are doing.</h2>
           <p class="text-muted max-720 mx-auto">
-            Where it is helping. Where it is hurting. What to fix next. Founder-led onboarding for engineering leaders serious about AI performance and ROI.
+            v0.1.0 is available now — pull the image, create an admin, enroll your team. No sales call required.
           </p>
-
-          <div class="form-wrap">
-            <form id="earlyAccessForm" class="d-flex gap-2" novalidate>
-              <input id="workEmail" name="email" type="email" class="form-control" placeholder="Work email" autocomplete="email" required />
-              <button id="earlyAccessSubmit" type="submit" class="btn btn-primary">Get access</button>
-            </form>
-            <div id="ctaStatus" class="cta-status" aria-live="polite"></div>
-            <p class="text-muted mt-3 mb-0">No credit card required.</p>
+          <div class="hero-actions">
+            <a href="https://github.com/chaosmonkey-dev/chaosmonkey" class="btn btn-primary" target="_blank" rel="noopener"><i class="bi bi-github me-1"></i> View on GitHub</a>
+            <a href="https://github.com/chaosmonkey-dev/chaosmonkey/blob/main/docs/installation.md" class="btn btn-outline-primary" target="_blank" rel="noopener">Installation guide</a>
           </div>
         </div>
       </div>
@@ -766,8 +724,10 @@
 
   <footer>
     <div class="container-fluid">
-      <p class="text-muted">© 2026 ChaosMonkey. Built for engineering leaders, by engineering leaders.</p>
+      <p class="text-muted">© 2026 ChaosMonkey. Open source under <a href="https://github.com/chaosmonkey-dev/chaosmonkey/blob/main/LICENSE" target="_blank" rel="noopener">Apache-2.0</a>. ChaosMonkey is an independent project, not affiliated with Netflix.</p>
       <p class="text-muted mb-0">
+        <a href="https://github.com/chaosmonkey-dev/chaosmonkey" target="_blank" rel="noopener">GitHub</a> •
+        <a href="https://github.com/chaosmonkey-dev/chaosmonkey/tree/main/docs" target="_blank" rel="noopener">Docs</a> •
         <a href="/privacy">Privacy</a> •
         <a href="/terms">Terms</a> •
         <a href="mailto:support@chaosmonkey.dev">Contact</a>
@@ -802,74 +762,6 @@
 
       els.forEach(el => io.observe(el));
     })();
-
-    // ================================
-    // Early Access form -> AWS Lambda URL
-    // ================================
-    (function () {
-      const ENDPOINT = "https://gacqawc6hol2is7vd2se7e4bci0wbnfr.lambda-url.us-east-2.on.aws/";
-
-      const form = document.getElementById("earlyAccessForm");
-      const emailEl = document.getElementById("workEmail");
-      const submitBtn = document.getElementById("earlyAccessSubmit");
-      const statusEl = document.getElementById("ctaStatus");
-
-      if (!form || !emailEl || !submitBtn || !statusEl) return;
-
-      function setStatus(text, kind) {
-        statusEl.textContent = text || "";
-        statusEl.className = "cta-status" + (kind ? (" " + kind) : "");
-      }
-
-      function isValidEmail(v) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || "").trim());
-      }
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const email = (emailEl.value || "").trim();
-
-        if (!isValidEmail(email)) {
-          setStatus("Please enter a valid email (example: you@company.com).", "error");
-          emailEl.focus();
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Submitting…";
-        setStatus("");
-
-        try {
-          const res = await fetch(ENDPOINT, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email })
-          });
-
-          const bodyText = await res.text().catch(() => "");
-
-          if (res.status === 200) {
-            setStatus("Requested. We’ll be in touch.", "success");
-            emailEl.value = "";
-          } else {
-            setStatus(`Submit failed (${res.status}). ${bodyText}`.trim(), "error");
-          }
-        } catch (err) {
-          console.error("Network error:", err);
-          setStatus("Network error. Please try again.", "error");
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Get access";
-        }
-      });
-    })();
   </script>
 </body>
 </html>
-
-
-
-  
-
-      
