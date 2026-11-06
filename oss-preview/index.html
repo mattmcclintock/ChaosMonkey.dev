@@ -339,6 +339,7 @@
     .product-shot{ width:100%; display:block; background:#0b0b0d; }
     .shot-caption{ padding:12px 14px 14px; color:rgba(255,255,255,.62); font-size:.92rem; border-top:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.14); text-align:center; }
     .shot-grid{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:22px; }
+    .shot-grid-3{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:22px; margin-top:22px; }
 
     .bullets{ list-style:none; padding:0; margin:1.1rem 0 0; display:grid; gap:10px; }
     .bullets li{ display:flex; align-items:flex-start; gap:10px; color:rgba(255,255,255,.72); }
@@ -393,7 +394,7 @@
 
     @media (max-width: 991px){
       .section{ padding:4.5rem 0; }
-      .hero-proof,.cards-3,.shot-grid{ grid-template-columns:1fr; }
+      .hero-proof,.cards-3,.shot-grid,.shot-grid-3{ grid-template-columns:1fr; }
       .cards-2{ grid-template-columns:1fr; }
       .feature-copy{ padding:0; }
       .shot-frame{ margin-top:1.2rem; }
@@ -559,7 +560,7 @@ docker exec -it chaosmonkey \
             <figcaption class="shot-caption">Historical workflow metrics as real chart lines over a six-week window — with metric, period, cohort, developer, repository, and comparison filters. The cost layer reads configured spend, not billing. Synthetic demo data.</figcaption>
           </figure>
 
-          <figure class="shot-frame reveal">
+          <figure class="shot-frame reveal" style="grid-column:1 / -1;">
             <div class="shot-topbar">
               <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
               <div class="shot-label">Performance Insights — qualified findings</div>
@@ -567,14 +568,16 @@ docker exec -it chaosmonkey \
             <img class="product-shot" src="assets/screens/oss/performance-insights.png" alt="Performance Insights panel showing engine-generated findings with session counts on both sides of a workflow comparison" loading="lazy" />
             <figcaption class="shot-caption">Findings fire only on sufficient evidence — each is attributed and labeled with its evidence basis. Synthetic demo data.</figcaption>
           </figure>
+        </div>
 
+        <div class="shot-grid-3">
           <figure class="shot-frame reveal">
             <div class="shot-topbar">
               <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
               <div class="shot-label">Performance Insights — evidence gating</div>
             </div>
             <img class="product-shot" src="assets/screens/oss/performance-insights-evidence.png" alt="Performance Insights in the collecting-evidence state, reporting sample size and the session thresholds required to qualify findings" loading="lazy" />
-            <figcaption class="shot-caption">Below the evidence threshold, the same engine reports its sample size and what's needed to qualify — no fabricated findings. Synthetic demo data.</figcaption>
+            <figcaption class="shot-caption">When sample sizes are insufficient, the engine reports what it has — session counts, thresholds, confidence caps — instead of drawing conclusions. Synthetic demo data.</figcaption>
           </figure>
 
           <figure class="shot-frame reveal">
