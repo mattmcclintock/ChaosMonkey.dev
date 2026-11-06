@@ -355,7 +355,11 @@
     .section-heading{ text-align:center; margin-bottom:2.2rem; }
     .section-heading p{ margin-left:auto; margin-right:auto; }
 
-    .feature-row{ align-items:center; gap:0; }
+    /* .feature-row sits inside the custom .container-fluid (padding 22px,
+       16px ≤768px), so Bootstrap's g-5 negative margin (-24px) would
+       overhang the container. Match the row margin to the container
+       padding — identical rendered layout, no horizontal overflow. */
+    .feature-row{ align-items:center; gap:0; margin-left:-22px; margin-right:-22px; }
     .feature-copy{ padding:0 1rem; }
 
     /* Steps */
@@ -405,6 +409,7 @@
 
     @media (max-width: 768px){
       .container-fluid{ padding:0 16px; }
+      .feature-row{ margin-left:-16px; margin-right:-16px; }
       .header-inner{ align-items:flex-start; flex-direction:column; padding:12px 0; }
       .dashboard-logo{ width:46px; height:46px; }
       .dashboard-title{ font-size:1.8rem; }
